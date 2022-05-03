@@ -147,8 +147,8 @@ function Draw() {
 				//create ice cream
 				context.beginPath();
 				var img = new Image();
-				img.src = 'ice_cream_prize.png';
-				context.drawImage(img, center.x-30, center.y-30,50,50)
+				img.src = 'clock_gif.gif';
+				context.drawImage(img, center.x-30, center.y-30,70,60);
 				context.fill();
 			} else if (board[i][j] == 6 && clock_is_activated){
 				//create clock
