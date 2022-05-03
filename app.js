@@ -2,6 +2,7 @@ var context;
 var shape = new Object();
 var board;
 var score;
+var lives;
 var pac_color;
 var start_time;
 var time_elapsed;
@@ -15,6 +16,7 @@ $(document).ready(function() {
 function Start() {
 	board = new Array();
 	score = 0;
+	lives = 5;
 	pac_color = "purple";
 	var cnt = 100;
 	var food_remain = 50;
@@ -23,6 +25,7 @@ function Start() {
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
+		// 4 is wall, 1 is dot, 2 is pacman, 0 is empty, 5 for ice cream
 		for (var j = 0; j < 10; j++) {
 			if (
 				(i == 3 && j == 3) ||
@@ -30,13 +33,18 @@ function Start() {
 				(i == 3 && j == 5) ||
 				(i == 6 && j == 1) ||
 				(i == 6 && j == 2)
-			) {
+			)
+			{
 				board[i][j] = 4;
-			} else {
+			}
+			else if ( i == 5 && j == 5){ // create ice cream here
+				board[i][j] = 5
+			} 
+			else {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
-					board[i][j] = 1;
+					board[i][j] = 1; 
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
@@ -100,6 +108,7 @@ function GetKeyPressed() {
 function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
+	lblLives.value = lives;
 	lblTime.value = time_elapsed;
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
@@ -107,24 +116,34 @@ function Draw() {
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
 			if (board[i][j] == 2) {
+				//create pacman
 				context.beginPath();
 				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
 				context.lineTo(center.x, center.y);
 				context.fillStyle = pac_color; //color
 				context.fill();
+				//create pacman eye
 				context.beginPath();
-				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle 
 				context.fillStyle = "black"; //color
 				context.fill();
 			} else if (board[i][j] == 1) {
+				// create dots
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
 				context.fillStyle = "black"; //color
 				context.fill();
-			} else if (board[i][j] == 4) {
+			} else if (board[i][j] == 4) { 
+				// create wall
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
+				context.fill();
+			} else if (board[i][j] == 5) {
+				// create ice cream prize
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.fillStyle = "red"; //color
 				context.fill();
 			}
 		}
@@ -154,8 +173,11 @@ function UpdatePosition() {
 			shape.i++;
 		}
 	}
-	if (board[shape.i][shape.j] == 1) {
+	if (board[shape.i][shape.j] == 1) { // recieved regular point
 		score++;
+	}
+	if (board[shape.i][shape.j] == 5) { // recieved ice cream
+		score+=50;
 	}
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();

@@ -3,17 +3,28 @@
 	<head>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
+		<link rel="stylesheet" href="style.css">
 	</head>
 
 	<body>
+		<div class="menu">
+			<a href="#welcome">Welcome</a>
+			<a href="#register">Register</a>
+			<a href="#login">Login</a>
+			<a href="#about">About</a>
+		  </div>
 		<div id="score">
 			<label for="lblScore">SCORE:</label>
 			<input id="lblScore" type="text" />
 		</div>
+		<div id="lives">
+			<label for="lblLives">LIVES:</label>
+			<input id="lblLives" type="text" />
+		</div>	
 		<div id="time">
 			<label for="lblTime">TIME:</label>
 			<input id="lblTime" type="text" />
-		</div>
+		</div>	
 		<div id="game">
 			<canvas id="canvas" height="600" width="600"></canvas>
 		</div>
