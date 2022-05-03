@@ -15,7 +15,7 @@ $(document).ready(function() {
 function Start() {
 	board = new Array();
 	score = 0;
-	pac_color = "yellow";
+	pac_color = "purple";
 	var cnt = 100;
 	var food_remain = 50;
 	var pacman_remain = 1;
