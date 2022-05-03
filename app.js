@@ -7,6 +7,8 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var clock_time = 0;
+clock_is_activated = false;
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
@@ -25,7 +27,7 @@ function Start() {
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
-		// 4 is wall, 1 is dot, 2 is pacman, 0 is empty, 5 for ice cream
+		// 4 is wall, 1 is dot, 2 is pacman, 0 is empty, 5 for ice cream, 6 for bad clock
 		for (var j = 0; j < 10; j++) {
 			if (
 				(i == 3 && j == 3) ||
@@ -57,6 +59,8 @@ function Start() {
 			}
 		}
 	}
+	var clock_position = findRandomEmptyCell(board);
+	board[clock_position[0]][clock_position[1]] = 6;
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 1;
@@ -140,10 +144,17 @@ function Draw() {
 				context.fillStyle = "grey"; //color
 				context.fill();
 			} else if (board[i][j] == 5) {
-				// create ice cream prize
+				//create ice cream
+				context.beginPath();
+				var img = new Image();
+				img.src = 'ice_cream_prize.png';
+				context.drawImage(img, center.x-30, center.y-30,50,50)
+				context.fill();
+			} else if (board[i][j] == 6 && clock_is_activated){
+				//create clock
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "red"; //color
+				context.fillStyle = "yellow"; //color
 				context.fill();
 			}
 		}
@@ -177,13 +188,22 @@ function UpdatePosition() {
 		score++;
 	}
 	if (board[shape.i][shape.j] == 5) { // recieved ice cream
-		score+=50;
+		score += 50;
+	}
+	var currentTime = new Date();
+	time_elapsed = (currentTime - start_time + 1000*clock_time) / 1000;
+
+	if (board[shape.i][shape.j] == 6 && clock_is_activated){
+		clock_time = -10
+		clock_is_activated = false;		
 	}
 	board[shape.i][shape.j] = 2;
-	var currentTime = new Date();
-	time_elapsed = (currentTime - start_time) / 1000;
+
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
+	}
+	if (time_elapsed > 15){
+		clock_is_activated = true;
 	}
 	if (score == 50) {
 		window.clearInterval(interval);
@@ -192,3 +212,4 @@ function UpdatePosition() {
 		Draw();
 	}
 }
+
