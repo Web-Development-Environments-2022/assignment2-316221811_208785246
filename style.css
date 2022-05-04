@@ -22,7 +22,6 @@
     color: white;
   }
 
-  .game{
-    background-color: purple;
-    color: purple;
+  #game{
+    background-color: rgb(26, 23, 26);
   }

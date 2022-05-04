@@ -121,6 +121,11 @@ function GetKeyPressed() {
 	}
 }
 
+function play(){
+	var audio = document.getElementById("audio");
+    audio.play();
+}
+
 function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
@@ -146,8 +151,8 @@ function Draw() {
 			} else if (board[i][j] == 1) {
 				// create dots
 				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
+				context.arc(center.x, center.y, 8, 0, 2 * Math.PI); // circle
+				context.fillStyle = "white"; //color
 				context.fill();
 			} else if (board[i][j] == 4) { 
 				// create wall
@@ -326,6 +331,10 @@ function UpdatePosition() {
 		window.alert("Game completed");
 	} else {
 		Draw();
+	}
+
+	function showWelcomeScreen(){
+		
 	}
 }
 
