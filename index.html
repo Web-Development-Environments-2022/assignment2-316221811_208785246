@@ -12,7 +12,7 @@
 			<a class="menu"onclick="showRegisterScreen()">Register</a>
 			<a class="menu" onclick="showLoginScreen()">Login</a>
 			<a class="menu" onclick="showSettingScreen()">Settings</a>
-			<a class="menu" onclick="aboutModalDialog()">About</a>
+			<a class="menu" id="aboutModal">About</a>
 		  </div>
 		<div id="score">
 			<label for="lblScore">SCORE:</label>
@@ -44,8 +44,11 @@
 			</div>
 			<div class="screen" id="playGameScreen"></div>
 		</div>
-		<div class="about">
-			
+		<div class="modal">
+  			<div class="modal-content">
+    		<span class="close-btn">&times;</span>
+    		<p>this is the text inside the modal</p>
+  			</div>
 		</div>	
 		<div id="game">
 			<canvas id="canvas" height="600" width="600"></canvas>

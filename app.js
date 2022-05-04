@@ -336,6 +336,27 @@ function UpdatePosition() {
 	function showWelcomeScreen(){
 		
 	}
+	// about modal
+	let modalBtn = document.getElementById("aboutModal")
+	let modal = document.querySelector(".modal")
+	let closeBtn = document.querySelector(".close-btn")
+	modalBtn.onclick = function(){
+  	modal.style.display = "block"
+	}
+	// exit options
+	closeBtn.onclick = function(){
+  	modal.style.display = "none"
+	}
+	document.addEventListener('keydown', function(event){
+		if(event.key === "Escape"){
+			modal.style.display = "none"
+		}
+	});
+	window.onclick = function(e){
+  	if(e.target == modal){
+    modal.style.display = "none"
+  	}
+	}
 }
 
 
