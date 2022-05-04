@@ -1,6 +1,8 @@
 var context;
 var shape = new Object();
+var icecream = new Object();
 var board;
+var historyboard;
 var score;
 var lives;
 var pac_color;
@@ -8,7 +10,9 @@ var start_time;
 var time_elapsed;
 var interval;
 var clock_time = 0;
+var resumeIceCream =true;
 clock_is_activated = false;
+
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
@@ -16,7 +20,10 @@ $(document).ready(function() {
 });
 
 function Start() {
+	icecream.i = 5;
+	icecream.j = 5;
 	board = new Array();
+	historyboard = new Array();
 	score = 0;
 	lives = 5;
 	pac_color = "purple";
@@ -26,6 +33,7 @@ function Start() {
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
+		historyboard[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		// 4 is wall, 1 is dot, 2 is pacman, 0 is empty, 5 for ice cream, 6 for bad clock
 		for (var j = 0; j < 10; j++) {
@@ -81,7 +89,8 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 250);
+	interval = setInterval(UpdatePosition, 150);
+	interval1 = setInterval(UpdatePositionIceCream, 100);
 }
 
 function findRandomEmptyCell(board) {
@@ -147,9 +156,14 @@ function Draw() {
 				//create ice cream
 				context.beginPath();
 				var img = new Image();
-				img.src = 'clock_gif.gif';
+				img.src = 'ice_cream2.jpg';
 				context.drawImage(img, center.x-30, center.y-30,70,60);
+				//var video = document.createElement("video");
+				//video.src = 'clock.mp4';
+				//video.autoplay = true;
+				//context.drawImage(video, center.x-30, center.y-30);
 				context.fill();
+
 			} else if (board[i][j] == 6 && clock_is_activated){
 				//create clock
 				context.beginPath();
@@ -160,6 +174,74 @@ function Draw() {
 		}
 	}
 }
+
+
+
+
+function UpdatePositionIceCream() {
+
+	
+	var x = Math.floor(Math.random()*4+1);
+	//var x=1;
+	if (x == 1) {
+		
+		if (icecream.j > 0 && board[icecream.i][icecream.j - 1] != 4) {
+			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
+			icecream.j--;
+
+
+			
+		}
+	}
+	else if (x == 2) {
+		if (ServiceWorker.j < 9 && board[icecream.i][icecream.j + 1] != 4) {
+			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
+			icecream.j++;
+			
+			
+
+		}
+	}
+	else if (x == 3) {
+		if (icecream.i > 0 && board[icecream.i - 1][icecream.j] != 4) {
+			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
+			icecream.i--;
+			
+			
+			
+			
+		}
+	}
+	else if (icecream.i < 9 && board[icecream.i + 1][icecream.j] != 4) {
+			
+			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
+			icecream.i++;
+			
+			
+				
+		
+		}
+	if (board[icecream.i][icecream.j]==2){
+		window.clearInterval(interval1);
+		board[icecream.i][icecream.j]=2
+
+	
+	}
+	else{
+		if(board[icecream.i][icecream.j]==1){
+			historyboard[icecream.i][icecream.j]=1;}
+		else if(board[icecream.i][icecream.j]==0){
+			historyboard[icecream.i][icecream.j]=0;
+		}
+		board[icecream.i][icecream.j] = 5;
+	}
+	draw();
+
+	}
+	
+
+
+
 
 function UpdatePosition() {
 	board[shape.i][shape.j] = 0;
@@ -188,6 +270,9 @@ function UpdatePosition() {
 		score++;
 	}
 	if (board[shape.i][shape.j] == 5) { // recieved ice cream
+		board[shape.i][shape.j]=2
+		
+		window.clearInterval(interval1);
 		score += 50;
 	}
 	var currentTime = new Date();
@@ -205,11 +290,12 @@ function UpdatePosition() {
 	if (time_elapsed > 15){
 		clock_is_activated = true;
 	}
-	if (score == 50) {
+	if (score == 500) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
 	} else {
 		Draw();
 	}
 }
+
 
