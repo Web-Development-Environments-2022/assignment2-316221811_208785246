@@ -89,8 +89,8 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 150);
-	interval1 = setInterval(UpdatePositionIceCream, 100);
+	interval = setInterval(UpdatePosition, 100);
+	interval1 = setInterval(UpdatePositionIceCream, 150);
 }
 
 function findRandomEmptyCell(board) {
@@ -102,6 +102,9 @@ function findRandomEmptyCell(board) {
 	}
 	return [i, j];
 }
+
+
+
 
 function GetKeyPressed() {
 	if (keysDown[38]) {
@@ -176,13 +179,41 @@ function Draw() {
 }
 
 
+function findEmptyNeighbor(i,j){
+	var options = [];
+	if(j>0 && availableCell(i,j-1)){
+		options.push(1);
+	}
+	if(j+1<9 && availableCell(i,j+1)){
+		options.push(2);
+	}
+	if(i>0 && availableCell(i-1,j)){
+		options.push(3);
+	}
+	if(i+1<9 && availableCell(i+1,j)){
+		options.push(4);
+	}
+	var rand = Math.floor(Math.random()*options.length);
+	//return(1)
+	return(options[rand]);
+
+	
+}
+function availableCell(i,j){
+	if(board[i,j]!=4){
+		return true;
+	}
+	return false;
+}
+
 
 
 function UpdatePositionIceCream() {
 
 	
-	var x = Math.floor(Math.random()*4+1);
+		
 	//var x=1;
+	var x = findEmptyNeighbor(icecream.i,icecream.j);
 	if (x == 1) {
 		
 		if (icecream.j > 0 && board[icecream.i][icecream.j - 1] != 4) {
@@ -194,7 +225,7 @@ function UpdatePositionIceCream() {
 		}
 	}
 	else if (x == 2) {
-		if (ServiceWorker.j < 9 && board[icecream.i][icecream.j + 1] != 4) {
+		if (icecream.j < 9 && board[icecream.i][icecream.j + 1] != 4) {
 			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
 			icecream.j++;
 			
