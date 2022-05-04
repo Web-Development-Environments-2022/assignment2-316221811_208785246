@@ -11,6 +11,7 @@
 			<a class="menu active" onclick="showWelcomeScreen()">Welcome </a>
 			<a class="menu"onclick="showRegisterScreen()">Register</a>
 			<a class="menu" onclick="showLoginScreen()">Login</a>
+			<a class="menu" onclick="showSettingScreen()">Settings</a>
 			<a class="menu" onclick="aboutModalDialog()">About</a>
 		  </div>
 		<div id="score">
@@ -31,8 +32,20 @@
 			<div class="screen" id="welcomeScreen"></div>
 			<div class="screen" id="registerScreen"></div>
 			<div class="screen" id="loginScreen"></div>
-			<div class="screen" id="settingsScreen"></div>
+			<div class="screen" id="settingsScreen">
+				choose keybinds: <br/>
+				<button up>up</button>
+				<button left>left</button>
+				<button right>right</button>
+				<button down>down</button> <br/>
+				number of balls: <br/>
+				<input type="range" id="quantity" value="50" name="quantity" min="50" max="90" oninput="this.nextElementSibling.value = this.value">
+				<output>50</output>
+			</div>
 			<div class="screen" id="playGameScreen"></div>
+		</div>
+		<div class="about">
+			
 		</div>	
 		<div id="game">
 			<canvas id="canvas" height="600" width="600"></canvas>
