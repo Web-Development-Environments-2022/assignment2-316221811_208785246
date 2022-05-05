@@ -189,13 +189,13 @@ function findEmptyNeighbor(i,j){
 	if(j>0 && availableCell(i,j-1)){
 		options.push(1);
 	}
-	if(j+1<9 && availableCell(i,j+1)){
+	if(j<9 && availableCell(i,j+1)){
 		options.push(2);
 	}
 	if(i>0 && availableCell(i-1,j)){
 		options.push(3);
 	}
-	if(i+1<9 && availableCell(i+1,j)){
+	if(i<9 && availableCell(i+1,j)){
 		options.push(4);
 	}
 	var rand = Math.floor(Math.random()*options.length);
@@ -205,7 +205,7 @@ function findEmptyNeighbor(i,j){
 	
 }
 function availableCell(i,j){
-	if(board[i,j]!=4){
+	if(board[i,j]!=4 && board[i,j]!=2){
 		return true;
 	}
 	return false;
@@ -248,7 +248,8 @@ function UpdatePositionIceCream() {
 			
 		}
 	}
-	else if (icecream.i < 9 && board[icecream.i + 1][icecream.j] != 4) {
+	else if(x==4){
+	 if (icecream.i < 9 && board[icecream.i + 1][icecream.j] != 4) {
 			
 			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
 			icecream.i++;
@@ -257,8 +258,10 @@ function UpdatePositionIceCream() {
 				
 		
 		}
+	}
 	if (board[icecream.i][icecream.j]==2){
 		window.clearInterval(interval1);
+		score+=50;
 		board[icecream.i][icecream.j]=2
 
 	
@@ -268,6 +271,9 @@ function UpdatePositionIceCream() {
 			historyboard[icecream.i][icecream.j]=1;}
 		else if(board[icecream.i][icecream.j]==0){
 			historyboard[icecream.i][icecream.j]=0;
+		}
+		else if(board[icecream.i][icecream.j]==6){
+			historyboard[icecream.i][icecream.j]=6;
 		}
 		board[icecream.i][icecream.j] = 5;
 	}
