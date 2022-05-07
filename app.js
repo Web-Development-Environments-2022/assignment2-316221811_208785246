@@ -71,7 +71,13 @@ function Start() {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
-					board[i][j] = 1; 
+					board[i][j] = 1;
+				} else if (randomNum <= (1.0 * food_remain_color2) / cnt) {
+					food_remain_color2--;
+					board[i][j] = 1.2;
+				} else if (randomNum <= (1.0 * food_remain_color3) / cnt) {
+					food_remain_color3--;
+					board[i][j] = 1.3;
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
@@ -90,6 +96,16 @@ function Start() {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 1;
 		food_remain--;
+	}
+	while (food_remain_color2 > 0) {
+		var emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 1.2;
+		food_remain_color2--;
+	}
+	while (food_remain_color3 > 0) {
+		var emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 1.3;
+		food_remain_color3--;
 	}
 	keysDown = {};
 	addEventListener(
@@ -173,6 +189,22 @@ function Draw() {
 				context.fill();
 				context.fillStyle = "white"
             	context.fillText('5', center.x-3, center.y+4);
+			} else if (board[i][j] == 1.2) {
+				// create dots
+				context.beginPath();
+				context.arc(center.x, center.y, 12, 0, 2 * Math.PI); // circle
+				context.fillStyle = color2; //color
+				context.fill();
+				context.fillStyle = "white"
+            	context.fillText('15', center.x-6, center.y+4);
+			} else if (board[i][j] == 1.3) {
+				// create dots
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.fillStyle = color3; //color
+				context.fill();
+				context.fillStyle = "white"
+            	context.fillText('25', center.x-6, center.y+4);
 			} else if (board[i][j] == 4) { 
 				// create wall
 				context.beginPath();
@@ -185,10 +217,6 @@ function Draw() {
 				var img = new Image();
 				img.src = 'ice_cream2.jpg';
 				context.drawImage(img, center.x-30, center.y-30,70,60);
-				//var video = document.createElement("video");
-				//video.src = 'clock.mp4';
-				//video.autoplay = true;
-				//context.drawImage(video, center.x-30, center.y-30);
 				context.fill();
 
 			} else if (board[i][j] == 6 && clock_is_activated){
@@ -291,6 +319,12 @@ function UpdatePositionIceCream() {
 		else if(board[icecream.i][icecream.j]==0){
 			historyboard[icecream.i][icecream.j]=0;
 		}
+		else if(board[icecream.i][icecream.j]==1.2){
+			historyboard[icecream.i][icecream.j]=1.2;
+		}
+		else if(board[icecream.i][icecream.j]==1.3){
+			historyboard[icecream.i][icecream.j]=1.3;
+		}
 		else if(board[icecream.i][icecream.j]==6){
 			historyboard[icecream.i][icecream.j]=6;
 		}
@@ -328,7 +362,13 @@ function UpdatePosition() {
 		}
 	}
 	if (board[shape.i][shape.j] == 1) { // recieved regular point
-		score++;
+		score+=5;
+	}
+	if (board[shape.i][shape.j] == 1.2) { // recieved medium point
+		score+=15;
+	}
+	if (board[shape.i][shape.j] == 1.3) { // recieved the big point
+		score+=25;
 	}
 	if (board[shape.i][shape.j] == 5) { // recieved ice cream
 		board[shape.i][shape.j]=2
