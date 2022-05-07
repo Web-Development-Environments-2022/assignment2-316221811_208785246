@@ -11,6 +11,10 @@ var time_elapsed;
 var interval;
 var clock_time = 0;
 var resumeIceCream =true;
+var ghost1 = new Object();
+var ghost2 = new Object();
+var ghost3 = new Object();
+var ghost4 = new Object();
 var color1 =  "#873a8d";
 var color2 =  "#873a8d";
 var color3 =  "#873a8d";
@@ -36,6 +40,18 @@ function readyButton(){
 }
 
 function Start() {
+	ghost1.i = 0;
+	ghost1.j = 0;
+	ghost2.i = 0;
+	ghost2.j = 9;
+	ghost3.i = 9;
+	ghost3.j = 0;
+	ghost4.i = 9;
+	ghost4.j = 9;
+	ghost1.num = 7;
+	ghost2.num = 8;
+	ghost3.num = 9;
+	ghost4.num = 10;
 	icecream.i = 5;
 	icecream.j = 5;
 	board = new Array();
@@ -67,7 +83,15 @@ function Start() {
 			}
 			else if ( i == 5 && j == 5){ // create ice cream here
 				board[i][j] = 5
-			} 
+			}
+			else if ( i == 0 && j == 0) { // create ghost here
+				board[i][j] = 7;}
+			else if ( i == 0 && j == 9) { // create ghost here
+				board[i][j] = 8;}
+			else if ( i == 9 && j == 0) { // create ghost here
+				board[i][j] = 9;}
+			else if ( i == 9 && j == 9) { // create ghost here
+					board[i][j] = 10;} 
 			else {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
@@ -120,6 +144,10 @@ function Start() {
 	);
 	interval = setInterval(UpdatePosition, 100);
 	interval1 = setInterval(UpdatePositionIceCream, 150);
+	intervalghost4 = setInterval(UpdatePositionGhost4, 500);
+	intervalghost1 = setInterval(UpdatePositionGhost1, 500);
+	intervalghost2 = setInterval(UpdatePositionGhost2, 500);
+	intervalghost3 = setInterval(UpdatePositionGhost3, 500);
 }
 
 function findRandomEmptyCell(board) {
@@ -209,12 +237,43 @@ function Draw() {
 				img.src = 'ice_cream2.jpg';
 				context.drawImage(img, center.x-30, center.y-30,70,60);
 				context.fill();
-
 			} else if (board[i][j] == 6 && clock_is_activated){
 				//create clock
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
 				context.fillStyle = "yellow"; //color
+				context.fill();
+			}
+			else if (board[i][j] == 7) {
+				//create ghost1
+				context.beginPath();
+				var img = new Image();
+				img.src = 'gr.png';
+				context.drawImage(img, center.x-30, center.y-30,50,50);
+				context.fill();
+			}
+			else if (board[i][j] == 8) {
+				//create ghost2
+				context.beginPath();
+				var img = new Image();
+				img.src = 'bl.png';
+				context.drawImage(img, center.x-30, center.y-30,50,50);
+				context.fill();
+			}
+			else if (board[i][j] == 9) {
+				//create ghost3
+				context.beginPath();
+				var img = new Image();
+				img.src = 'or.png';
+				context.drawImage(img, center.x-30, center.y-30,50,50);
+				context.fill();
+			}
+			else if (board[i][j] == 10) {
+				//create ghost4
+				context.beginPath();
+				var img = new Image();
+				img.src = 'pu.png';
+				context.drawImage(img, center.x-30, center.y-30,50,50);
 				context.fill();
 			}
 		}
@@ -266,58 +325,37 @@ function availableCell(i,j){
 
 
 
-function UpdatePositionIceCream() {
-
-	
-		
+function UpdatePositionIceCream() {			
 	//var x=1;
 	var x = findEmptyNeighbor(icecream.i,icecream.j);
-	if (x == 1) {
-		
-		if (icecream.j > 0 && board[icecream.i][icecream.j - 1] != 4) {
+	if (x == 1) {		
+		if (icecream.j > 0 && board[icecream.i][icecream.j - 1] != 4 && board[icecream.i][icecream.j - 1] != 7 && board[icecream.i][icecream.j - 1] != 8 && board[icecream.i][icecream.j - 1] != 9 && board[icecream.i][icecream.j - 1] != 10) {
 			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
-			icecream.j--;
-
-
-			
+			icecream.j--;			
 		}
 	}
 	else if (x == 2) {
-		if (icecream.j < 9 && board[icecream.i][icecream.j + 1] != 4) {
+		if (icecream.j < 9 && board[icecream.i][icecream.j + 1] != 4  && board[icecream.i][icecream.j + 1] != 7 && board[icecream.i][icecream.j + 1] != 8  && board[icecream.i][icecream.j + 1] != 9 && board[icecream.i][icecream.j + 1] != 10) {
 			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
-			icecream.j++;
-			
-			
-
+			icecream.j++;			
 		}
 	}
 	else if (x == 3) {
-		if (icecream.i > 0 && board[icecream.i - 1][icecream.j] != 4) {
+		if (icecream.i > 0 && board[icecream.i - 1][icecream.j] != 4  && board[icecream.i-1][icecream.j] != 7 && board[icecream.i-1][icecream.j ] != 8  && board[icecream.i-1][icecream.j] != 9 && board[icecream.i-1][icecream.j] != 10) {
 			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
 			icecream.i--;
-			
-			
-			
-			
 		}
 	}
 	else if(x==4){
-	 if (icecream.i < 9 && board[icecream.i + 1][icecream.j] != 4) {
-			
+		if (icecream.i < 9 && board[icecream.i + 1][icecream.j] != 4  && board[icecream.i+1][icecream.j] != 7 && board[icecream.i+1][icecream.j] != 8 && board[icecream.i+1][icecream.j] != 9 && board[icecream.i+1][icecream.j] != 10) {		
 			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
 			icecream.i++;
-			
-			
-				
-		
 		}
 	}
 	if (board[icecream.i][icecream.j]==2){
 		window.clearInterval(interval1);
 		score+=50;
 		board[icecream.i][icecream.j]=2
-
-	
 	}
 	else{
 		if(board[icecream.i][icecream.j]==1){
@@ -337,11 +375,131 @@ function UpdatePositionIceCream() {
 		board[icecream.i][icecream.j] = 5;
 	}
 	draw();
-
 	}
 	
 
+	function clearCell(i,j){
+		if(board[i][j]!=4 && board[i][j]!=5 && board[i][j]!=7 && board[i][j]!=8 && board[i][j]!=9 && board[i][j]!=10 && historyboard[i][j]!=7 && historyboard[i][j]!=8 && historyboard[i][j]!=9 && historyboard[i][j]!=10){
+			return(true)
+		}
+		return (false)
 
+	}
+
+
+	function UpdatePositionGhost1() {
+		UpdatePositionGhost(ghost1)
+		
+	}
+	function UpdatePositionGhost2() {
+		UpdatePositionGhost(ghost2)
+		
+	}
+	function UpdatePositionGhost3() {
+		UpdatePositionGhost(ghost3)
+		
+	}
+	function UpdatePositionGhost4() {
+		UpdatePositionGhost(ghost4)
+		
+	}
+	
+	
+		
+
+	function UpdatePositionGhost(ghost){
+			if (ghost.i >0 && ghost.i> shape.i && clearCell(ghost.i-1,ghost.j)){
+				board[ghost.i][ghost.j] = historyboard[ghost.i][ghost.j];
+				ghost.i--;
+			}
+			else if (ghost.i <9 && ghost.i< shape.i && clearCell(ghost.i+1,ghost.j)){
+				board[ghost.i][ghost.j] = historyboard[ghost.i][ghost.j];
+				ghost.i++;
+			}
+			else if (ghost.j <9 && ghost.j< shape.j && clearCell(ghost.i,ghost.j+1)){
+				board[ghost.i][ghost.j] = historyboard[ghost.i][ghost.j];
+				ghost.j++;
+			}
+			else if (ghost.j >0 && ghost.j> shape.j && clearCell(ghost.i,ghost.j-1)){
+				board[ghost.i][ghost.j] = historyboard[ghost.i][ghost.j];
+				ghost.j--;
+			}
+			else if (ghost.j >0 && clearCell(ghost.i,ghost.j-1)){
+				board[ghost.i][ghost.j] = historyboard[ghost.i][ghost.j];
+				ghost.j--;
+			}
+			
+			else if (ghost.i <9 && clearCell(ghost.i+1,ghost.j)){
+				board[ghost.i][ghost.j] = historyboard[ghost.i][ghost.j];
+				ghost.i++;
+			}
+			else if ( ghost.j <9 && clearCell(ghost.i,ghost.j+1)){
+				board[ghost.i][ghost.j] = historyboard[ghost.i][ghost.j];
+				ghost.j++;
+			}
+			else if ( ghost.i >0 && clearCell(ghost.i-1,ghost.j)){
+				board[ghost.i][ghost.j] = historyboard[ghost.i][ghost.j];
+				ghost.i--;
+			}
+	
+	
+	
+		
+		if (board[ghost.i][ghost.j]==2){
+			startover()
+			lives=lives-1;
+			score=score -10;
+
+			
+		
+		}
+		if(board[ghost.i][ghost.j]==1){
+			historyboard[ghost.i][ghost.j]=1;}
+		
+		else if(board[ghost.i][ghost.j]==6){
+			historyboard[ghost.i][ghost.j]=6;
+		}
+		else if(board[ghost.i][ghost.j]==5){
+			historyboard[ghost.i][ghost.j]=5;
+		}
+		else if(board[ghost.i][ghost.j]==1.2){
+			historyboard[ghost.i][ghost.j]=1.2;
+		}
+		else if(board[ghost.i][ghost.j]==1.3){
+			historyboard[ghost.i][ghost.j]=1.3;
+		}
+		else{
+			historyboard[ghost.i][ghost.j]=0;
+		}
+		board[ghost.i][ghost.j] = ghost.num;
+		
+		draw();
+	
+		}
+		
+function startover(){
+	board[ghost1.i][ghost1.j]= historyboard[ghost1.i][ghost1.j];
+	board[ghost2.i][ghost2.j]= historyboard[ghost2.i][ghost2.j];
+	board[ghost3.i][ghost3.j]= historyboard[ghost3.i][ghost3.j];
+	board[ghost4.i][ghost4.j]= historyboard[ghost4.i][ghost4.j];
+	ghost1.i = 0;
+	ghost1.j = 0;
+	ghost2.i = 0;
+	ghost2.j = 9;
+	ghost3.i = 9;
+	ghost3.j = 0;
+	ghost4.i = 9;
+	ghost4.j = 9;
+	ghost1.num = 7;
+	ghost2.num = 8;
+	ghost3.num = 9;
+	ghost4.num = 10;
+	var pacman_position = findRandomEmptyCell(board);
+	board[shape.i][shape.j] = 0;
+	shape.i = pacman_position[0];
+	shape.j = pacman_position[1];
+	board[shape.i][shape.j] = 2;	
+	}
 
 
 function UpdatePosition() {
