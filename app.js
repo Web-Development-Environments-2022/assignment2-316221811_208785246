@@ -15,6 +15,7 @@ var color1 =  "#873a8d";
 var color2 =  "#873a8d";
 var color3 =  "#873a8d";
 var num_balls = 50;
+var pacmanPhoto = 'right.png';
 clock_is_activated = false;
 
 
@@ -72,13 +73,8 @@ function Start() {
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
 					board[i][j] = 1;
-				} else if (randomNum <= (1.0 * food_remain_color2) / cnt) {
-					food_remain_color2--;
-					board[i][j] = 1.2;
-				} else if (randomNum <= (1.0 * food_remain_color3) / cnt) {
-					food_remain_color3--;
-					board[i][j] = 1.3;
-				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
+				} 
+				else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
 					pacman_remain--;
@@ -172,14 +168,9 @@ function Draw() {
 			if (board[i][j] == 2) {
 				//create pacman
 				context.beginPath();
-				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-				context.lineTo(center.x, center.y);
-				context.fillStyle = pac_color; //color
-				context.fill();
-				//create pacman eye
-				context.beginPath();
-				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle 
-				context.fillStyle = "black"; //color
+				var pacmanRight = new Image();
+				pacmanRight.src = pacmanPhoto;
+				context.drawImage(pacmanRight, center.x-30, center.y-30,40,40);
 				context.fill();
 			} else if (board[i][j] == 1) {
 				// create dots
@@ -230,6 +221,21 @@ function Draw() {
 	}
 }
 
+function drawPacman(direction){
+
+	if (direction == 1){
+		pacmanPhoto = 'right.png';
+	}
+	else if (direction == 2){
+		pacmanPhoto = 'left.png';
+	}
+	else if (direction == 3){
+		pacmanPhoto = 'up.png';
+	}
+	else{
+		pacmanPhoto = 'down.png';
+	}
+}
 
 function findEmptyNeighbor(i,j){
 	var options = [];
@@ -344,21 +350,25 @@ function UpdatePosition() {
 	if (x == 1) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;
+			drawPacman(3)
 		}
 	}
 	if (x == 2) {
 		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
+			drawPacman(4)
 		}
 	}
 	if (x == 3) {
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
+			drawPacman(2)
 		}
 	}
 	if (x == 4) {
 		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
+			drawPacman(1)
 		}
 	}
 	if (board[shape.i][shape.j] == 1) { // recieved regular point
