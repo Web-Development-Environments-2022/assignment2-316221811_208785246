@@ -21,7 +21,7 @@ var color3 =  "#873a8d";
 var num_balls = 50;
 var pacmanPhoto = 'right.png';
 clock_is_activated = false;
-
+var ghostsNum = 4;
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
@@ -33,6 +33,7 @@ function readyButton(){
 	var c2 = document.getElementById("secondColorPicker").value;
 	var c3 = document.getElementById("thirdColorPicker").value;
 	var balls = document.getElementById("balls").value;
+	ghostsNum = document.getElementById("numGhost").value;
 	color1 = c1;
 	color2 = c2;
 	color3 = c3;
@@ -86,11 +87,11 @@ function Start() {
 			}
 			else if ( i == 0 && j == 0) { // create ghost here
 				board[i][j] = 7;}
-			else if ( i == 0 && j == 9) { // create ghost here
+			else if ( i == 0 && j == 9 && ghostsNum>1) { // create ghost here
 				board[i][j] = 8;}
-			else if ( i == 9 && j == 0) { // create ghost here
+			else if ( i == 9 && j == 0 && ghostsNum>2) { // create ghost here
 				board[i][j] = 9;}
-			else if ( i == 9 && j == 9) { // create ghost here
+			else if ( i == 9 && j == 9 && ghostsNum>3) { // create ghost here
 					board[i][j] = 10;} 
 			else {
 				var randomNum = Math.random();
@@ -144,10 +145,13 @@ function Start() {
 	);
 	interval = setInterval(UpdatePosition, 100);
 	interval1 = setInterval(UpdatePositionIceCream, 150);
-	intervalghost4 = setInterval(UpdatePositionGhost4, 500);
 	intervalghost1 = setInterval(UpdatePositionGhost1, 500);
-	intervalghost2 = setInterval(UpdatePositionGhost2, 500);
-	intervalghost3 = setInterval(UpdatePositionGhost3, 500);
+	if (ghostsNum>1){
+	intervalghost2 = setInterval(UpdatePositionGhost2, 500);}
+	if (ghostsNum>2){
+	intervalghost3 = setInterval(UpdatePositionGhost3, 500);}
+	if (ghostsNum>3){
+	intervalghost4 = setInterval(UpdatePositionGhost4, 500);}
 }
 
 function findRandomEmptyCell(board) {
