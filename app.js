@@ -23,21 +23,42 @@ var pacmanPhoto = 'right.png';
 clock_is_activated = false;
 var ghostsNum = 4;
 
-$(document).ready(function() {
-	context = canvas.getContext("2d");
-	Start();
-});
+function getRandomColor() {
+	var letters = '0123456789ABCDEF';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+	  color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
+  }
+
+  function randomIntFromInterval(min, max) { // min and max included 
+	return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+function randomChoose(){
+	color1 = getRandomColor();
+	color2 = getRandomColor();
+	color3 = getRandomColor();
+	ghostsNum = randomIntFromInterval(1, 4);
+	num_balls = Math.floor(Math.random() * 40); /***TODO CHANGE WHEN CANVAS IS BIGGER */
+	$(document).ready(function() {
+		context = canvas.getContext("2d");
+		Start();
+	});	
+}
 
 function readyButton(){
-	var c1 = document.getElementById("firstColorPicker").value;
-	var c2 = document.getElementById("secondColorPicker").value;
-	var c3 = document.getElementById("thirdColorPicker").value;
-	var balls = document.getElementById("balls").value;
+	//*********TODO GAME TIME *********/
+	color1 = document.getElementById("firstColorPicker").value;
+	color2 = document.getElementById("secondColorPicker").value;
+	color3 = document.getElementById("thirdColorPicker").value;
+	num_balls = document.getElementById("balls").value;
 	ghostsNum = document.getElementById("numGhost").value;
-	color1 = c1;
-	color2 = c2;
-	color3 = c3;
-	num_balls = balls;
+	$(document).ready(function() {
+		context = canvas.getContext("2d");
+		Start();
+	});
 }
 
 function Start() {
