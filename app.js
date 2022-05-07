@@ -11,6 +11,10 @@ var time_elapsed;
 var interval;
 var clock_time = 0;
 var resumeIceCream =true;
+var color1 =  "#873a8d";
+var color2 =  "#873a8d";
+var color3 =  "#873a8d";
+var num_balls = 50;
 clock_is_activated = false;
 
 
@@ -18,6 +22,17 @@ $(document).ready(function() {
 	context = canvas.getContext("2d");
 	Start();
 });
+
+function readyButton(){
+	var c1 = document.getElementById("firstColorPicker").value;
+	var c2 = document.getElementById("secondColorPicker").value;
+	var c3 = document.getElementById("thirdColorPicker").value;
+	var balls = document.getElementById("balls").value;
+	color1 = c1;
+	color2 = c2;
+	color3 = c3;
+	num_balls = balls;
+}
 
 function Start() {
 	icecream.i = 5;
@@ -28,7 +43,9 @@ function Start() {
 	lives = 5;
 	pac_color = "purple";
 	var cnt = 100;
-	var food_remain = 50;
+	var food_remain = 0.6*num_balls;
+	var food_remain_color2 = 0.3*num_balls;
+	var food_remain_color3 = 0.1*num_balls;
 	var pacman_remain = 1;
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
@@ -152,8 +169,10 @@ function Draw() {
 				// create dots
 				context.beginPath();
 				context.arc(center.x, center.y, 8, 0, 2 * Math.PI); // circle
-				context.fillStyle = "white"; //color
+				context.fillStyle = color1; //color
 				context.fill();
+				context.fillStyle = "white"
+            	context.fillText('5', center.x-3, center.y+4);
 			} else if (board[i][j] == 4) { 
 				// create wall
 				context.beginPath();

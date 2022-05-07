@@ -39,8 +39,23 @@
 				<button right>right</button>
 				<button down>down</button> <br/>
 				number of balls: <br/>
-				<input type="range" id="quantity" value="50" name="quantity" min="50" max="90" oninput="this.nextElementSibling.value = this.value">
-				<output>50</output>
+				<input type="range" id="balls" value="50" name="quantity" min="50" max="90" oninput="this.nextElementSibling.value = this.value">
+				<output>50</output><br/>
+				choose balls color: <br/>
+				5 points ball
+				choose color <input type="color" id="firstColorPicker" value="#0000ff">
+				<br/> 15 points ball 
+				choose color <input type="color" id="secondColorPicker" value="#0000ff">
+				<br/> 25 points ball
+				choose color <input type="color" id="thirdColorPicker" value="#0000ff"> <br/>
+				game time: <br/>
+				<input type="range" id="gameTime" value="60" min="60" max="120" oninput="this.nextElementSibling.value = this.value">
+				<output>60</output><br/>
+				number of ghosts: <br/>
+				<input type="range" id="numGhost" value="1" min="1" max="4" oninput="this.nextElementSibling.value = this.value">
+				<output>1</output><br/>
+				<button id ="ready" onclick="readyButton()">ready!</button>
+				<button id ="randomChoose" onclick="randomChoose()">choose for me!</button>
 			</div>
 			<div class="screen" id="playGameScreen"></div>
 		</div>
