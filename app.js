@@ -667,9 +667,23 @@ function UpdatePosition() {
 	}
 	Draw();
 }
-	function showWelcomeScreen(){
-		
-	}
+
+// functions that hide all screens & then show a specific screen
+// these functions also update navigation menu to highlight active screen
+function showSettingScreen() {
+	$(".screen").hide();
+	$("#settingsScreen").show();
+	//$(".menu").removeClass("active");
+	//$(".menu").eq(0).addClass("active"); // eq(0) = 1st menu item
+  }
+
+  function showLoginScreen() {
+	$(".screen").hide();
+	$("#game").show();
+	//$(".menu").removeClass("active");
+	//$(".menu").eq(0).addClass("active"); // eq(0) = 1st menu item
+  }
+  
 
 	// about modal
 	let modalBtn = document.getElementById("aboutModal")

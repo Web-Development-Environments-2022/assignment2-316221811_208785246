@@ -14,22 +14,10 @@
 			<a class="menu" onclick="showSettingScreen()">Settings</a>
 			<a class="menu" id="aboutModal">About</a>
 		  </div>
-		<div id="score">
-			<label for="lblScore">SCORE:</label>
-			<input id="lblScore" type="text" />
-		</div>
-		<div id="lives">
-			<label for="lblLives">LIVES:</label>
-			<input id="lblLives" type="text" />
-		</div>	
-		<div id="time">
-			<label for="lblTime">TIME:</label>
-			<input id="lblTime" type="text" />
-		</div>
     	<audio id="audio" src="resources/sounds/pacman.mp3"></audio>
 		<div class="content" >
 			<div class="screen" id="welcomeScreen">
-				<img src="resources/welcome_screen/BACKGROUND_NO_BUTTONS_NO_LOGO.png" width="50%" height="50%">
+				<input type="image" id="background" src="resources/welcome_screen/BACKGROUND_NO_BUTTONS_NO_LOGO.png">
 				<input type="image" id="login" src="resources/welcome_screen/BUTTON_LOGIN_REGULAR.png">
 				<input type="image" id="register" src="resources/welcome_screen/BUTTON_REGISTER_REGULAR.png">
 				<input type="image" id="logoBlink" src="resources/welcome_screen/PACMAN_LOGO_HOVER.png">
@@ -63,7 +51,21 @@
 				<button id ="ready" onclick="readyButton()">ready!</button>
 				<button id ="randomChoose" onclick="randomChoose()">choose for me!</button>
 			</div>
-			<div class="screen" id="playGameScreen"></div>
+			<div class="screen" id="game">
+				<canvas id="canvas" height="600" width="1200"></canvas>
+				<div id="score">
+					<label for="lblScore">SCORE:</label>
+					<input id="lblScore" type="text" />
+				</div>
+				<div id="lives">
+					<label for="lblLives">LIVES:</label>
+					<input id="lblLives" type="text" />
+				</div>	
+				<div id="time">
+					<label for="lblTime">TIME:</label>
+					<input id="lblTime" type="text" />
+				</div>
+			</div>
 		</div>
 		<div class="modal">
   			<div class="modal-content">
@@ -71,8 +73,5 @@
     		<p>this is the text inside the modal</p>
   			</div>
 		</div>	
-		<div id="game">
-			<canvas id="canvas" height="600" width="1200" style="position: absolute; left: 0px;top: 1000px;"></canvas>
-		</div>
 	</body>
 </html>
