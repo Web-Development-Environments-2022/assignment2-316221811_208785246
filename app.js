@@ -41,7 +41,7 @@ function randomChoose(){
 	color2 = getRandomColor();
 	color3 = getRandomColor();
 	ghostsNum = randomIntFromInterval(1, 4);
-	num_balls = Math.floor(Math.random() * 40); /***TODO CHANGE WHEN CANVAS IS BIGGER */
+	num_balls = randomIntFromInterval(50, 90);
 	$(document).ready(function() {
 		context = canvas.getContext("2d");
 		Start();
