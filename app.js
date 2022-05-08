@@ -22,6 +22,8 @@ var num_balls = 50;
 var pacmanPhoto = 'right.png';
 clock_is_activated = false;
 var ghostsNum = 4;
+var rowsNum = 10;
+var colsNum = 20;
 
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
@@ -66,15 +68,15 @@ function Start() {
 	ghost1.j = 0;
 	ghost2.i = 0;
 	ghost2.j = 9;
-	ghost3.i = 9;
+	ghost3.i = 19;
 	ghost3.j = 0;
-	ghost4.i = 9;
+	ghost4.i = 19;
 	ghost4.j = 9;
 	ghost1.num = 7;
 	ghost2.num = 8;
 	ghost3.num = 9;
 	ghost4.num = 10;
-	icecream.i = 5;
+	icecream.i = 10;
 	icecream.j = 5;
 	board = new Array();
 	historyboard = new Array();
@@ -97,22 +99,22 @@ function Start() {
 				(i == 3 && j == 3) ||
 				(i == 3 && j == 4) ||
 				(i == 3 && j == 5) ||
-				(i == 6 && j == 1) ||
+				(i == 6 && j == 1) || (i==15 &&j==9)||
 				(i == 6 && j == 2)
 			)
 			{
 				board[i][j] = 4;
 			}
-			else if ( i == 5 && j == 5){ // create ice cream here
+			else if ( i == 10 && j == 5){ // create ice cream here
 				board[i][j] = 5
 			}
 			else if ( i == 0 && j == 0) { // create ghost here
 				board[i][j] = 7;}
 			else if ( i == 0 && j == 9 && ghostsNum>1) { // create ghost here
-				board[i][j] = 8;}
-			else if ( i == 9 && j == 0 && ghostsNum>2) { // create ghost here
+				board[i][j] = 	8;}
+			else if ( i == 19 && j == 0 && ghostsNum>2) { // create ghost here
 				board[i][j] = 9;}
-			else if ( i == 9 && j == 9 && ghostsNum>3) { // create ghost here
+			else if ( i == 19 && j == 9 && ghostsNum>3) { // create ghost here
 					board[i][j] = 10;} 
 			else {
 				var randomNum = Math.random();
@@ -332,10 +334,10 @@ function findEmptyNeighbor(i,j){
 	if(i>0 && availableCell(i-1,j)){
 		options.push(3);
 	}
-	if(i<9 && availableCell(i+1,j)){
+	if(i<19 && availableCell(i+1,j)){
 		options.push(4);
 	}
-	var rand = Math.floor(Math.random()*options.length);
+	var rand = randomIntFromInterval(0,options.length);
 	//return(1)
 	return(options[rand]);
 
@@ -372,7 +374,7 @@ function UpdatePositionIceCream() {
 		}
 	}
 	else if(x==4){
-		if (icecream.i < 9 && board[icecream.i + 1][icecream.j] != 4  && board[icecream.i+1][icecream.j] != 7 && board[icecream.i+1][icecream.j] != 8 && board[icecream.i+1][icecream.j] != 9 && board[icecream.i+1][icecream.j] != 10) {		
+		if (icecream.i < 19 && board[icecream.i + 1][icecream.j] != 4  && board[icecream.i+1][icecream.j] != 7 && board[icecream.i+1][icecream.j] != 8 && board[icecream.i+1][icecream.j] != 9 && board[icecream.i+1][icecream.j] != 10) {		
 			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
 			icecream.i++;
 		}
@@ -437,7 +439,7 @@ function UpdatePositionIceCream() {
 				board[ghost.i][ghost.j] = historyboard[ghost.i][ghost.j];
 				ghost.i--;
 			}
-			else if (ghost.i <9 && ghost.i< shape.i && clearCell(ghost.i+1,ghost.j)){
+			else if (ghost.i <19 && ghost.i< shape.i && clearCell(ghost.i+1,ghost.j)){
 				board[ghost.i][ghost.j] = historyboard[ghost.i][ghost.j];
 				ghost.i++;
 			}
@@ -454,7 +456,7 @@ function UpdatePositionIceCream() {
 				ghost.j--;
 			}
 			
-			else if (ghost.i <9 && clearCell(ghost.i+1,ghost.j)){
+			else if (ghost.i <19 && clearCell(ghost.i+1,ghost.j)){
 				board[ghost.i][ghost.j] = historyboard[ghost.i][ghost.j];
 				ghost.i++;
 			}
@@ -511,9 +513,9 @@ function startover(){
 	ghost1.j = 0;
 	ghost2.i = 0;
 	ghost2.j = 9;
-	ghost3.i = 9;
+	ghost3.i = 19;
 	ghost3.j = 0;
-	ghost4.i = 9;
+	ghost4.i = 19;
 	ghost4.j = 9;
 	ghost1.num = 7;
 	ghost2.num = 8;
