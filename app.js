@@ -24,6 +24,7 @@ clock_is_activated = false;
 var ghostsNum = 4;
 var rowsNum = 10;
 var colsNum = 20;
+var dead = false;
 
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
@@ -64,6 +65,7 @@ function readyButton(){
 }
 
 function Start() {
+	pacmanPhoto = 'right.png';
 	ghost1.i = 0;
 	ghost1.j = 0;
 	ghost2.i = 0;
@@ -351,57 +353,59 @@ function availableCell(i,j){
 }
 
 
-
 function UpdatePositionIceCream() {			
 	//var x=1;
-	var x = findEmptyNeighbor(icecream.i,icecream.j);
-	if (x == 1) {		
-		if (icecream.j > 0 && board[icecream.i][icecream.j - 1] != 4 && board[icecream.i][icecream.j - 1] != 7 && board[icecream.i][icecream.j - 1] != 8 && board[icecream.i][icecream.j - 1] != 9 && board[icecream.i][icecream.j - 1] != 10) {
-			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
-			icecream.j--;			
+	if (!dead){
+
+		var x = findEmptyNeighbor(icecream.i,icecream.j);
+		if (x == 1) {		
+			if (icecream.j > 0 && board[icecream.i][icecream.j - 1] != 4 && board[icecream.i][icecream.j - 1] != 7 && board[icecream.i][icecream.j - 1] != 8 && board[icecream.i][icecream.j - 1] != 9 && board[icecream.i][icecream.j - 1] != 10) {
+				board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
+				icecream.j--;			
+			}
+		}
+		else if (x == 2) {
+			if (icecream.j < 9 && board[icecream.i][icecream.j + 1] != 4  && board[icecream.i][icecream.j + 1] != 7 && board[icecream.i][icecream.j + 1] != 8  && board[icecream.i][icecream.j + 1] != 9 && board[icecream.i][icecream.j + 1] != 10) {
+				board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
+				icecream.j++;			
+			}
+		}
+		else if (x == 3) {
+			if (icecream.i > 0 && board[icecream.i - 1][icecream.j] != 4  && board[icecream.i-1][icecream.j] != 7 && board[icecream.i-1][icecream.j ] != 8  && board[icecream.i-1][icecream.j] != 9 && board[icecream.i-1][icecream.j] != 10) {
+				board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
+				icecream.i--;
+			}
+		}
+		else if(x==4){
+			if (icecream.i < 19 && board[icecream.i + 1][icecream.j] != 4  && board[icecream.i+1][icecream.j] != 7 && board[icecream.i+1][icecream.j] != 8 && board[icecream.i+1][icecream.j] != 9 && board[icecream.i+1][icecream.j] != 10) {		
+				board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
+				icecream.i++;
+			}
+		}
+		if (board[icecream.i][icecream.j]==2){
+			window.clearInterval(interval1);
+			score+=50;
+			board[icecream.i][icecream.j]=2
+		}
+		else{
+			if(board[icecream.i][icecream.j]==1){
+				historyboard[icecream.i][icecream.j]=1;}
+			else if(board[icecream.i][icecream.j]==0){
+				historyboard[icecream.i][icecream.j]=0;
+			}
+			else if(board[icecream.i][icecream.j]==1.2){
+				historyboard[icecream.i][icecream.j]=1.2;
+			}
+			else if(board[icecream.i][icecream.j]==1.3){
+				historyboard[icecream.i][icecream.j]=1.3;
+			}
+			else if(board[icecream.i][icecream.j]==6){
+				historyboard[icecream.i][icecream.j]=6;
+			}
+			board[icecream.i][icecream.j] = 5;
 		}
 	}
-	else if (x == 2) {
-		if (icecream.j < 9 && board[icecream.i][icecream.j + 1] != 4  && board[icecream.i][icecream.j + 1] != 7 && board[icecream.i][icecream.j + 1] != 8  && board[icecream.i][icecream.j + 1] != 9 && board[icecream.i][icecream.j + 1] != 10) {
-			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
-			icecream.j++;			
-		}
-	}
-	else if (x == 3) {
-		if (icecream.i > 0 && board[icecream.i - 1][icecream.j] != 4  && board[icecream.i-1][icecream.j] != 7 && board[icecream.i-1][icecream.j ] != 8  && board[icecream.i-1][icecream.j] != 9 && board[icecream.i-1][icecream.j] != 10) {
-			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
-			icecream.i--;
-		}
-	}
-	else if(x==4){
-		if (icecream.i < 19 && board[icecream.i + 1][icecream.j] != 4  && board[icecream.i+1][icecream.j] != 7 && board[icecream.i+1][icecream.j] != 8 && board[icecream.i+1][icecream.j] != 9 && board[icecream.i+1][icecream.j] != 10) {		
-			board[icecream.i][icecream.j] = historyboard[icecream.i][icecream.j];
-			icecream.i++;
-		}
-	}
-	if (board[icecream.i][icecream.j]==2){
-		window.clearInterval(interval1);
-		score+=50;
-		board[icecream.i][icecream.j]=2
-	}
-	else{
-		if(board[icecream.i][icecream.j]==1){
-			historyboard[icecream.i][icecream.j]=1;}
-		else if(board[icecream.i][icecream.j]==0){
-			historyboard[icecream.i][icecream.j]=0;
-		}
-		else if(board[icecream.i][icecream.j]==1.2){
-			historyboard[icecream.i][icecream.j]=1.2;
-		}
-		else if(board[icecream.i][icecream.j]==1.3){
-			historyboard[icecream.i][icecream.j]=1.3;
-		}
-		else if(board[icecream.i][icecream.j]==6){
-			historyboard[icecream.i][icecream.j]=6;
-		}
-		board[icecream.i][icecream.j] = 5;
-	}
-	draw();
+	Draw();
 	}
 	
 
@@ -434,7 +438,8 @@ function UpdatePositionIceCream() {
 	
 		
 
-	function UpdatePositionGhost(ghost){
+function UpdatePositionGhost(ghost){
+	if (!dead){
 			if (ghost.i >0 && ghost.i> shape.i && clearCell(ghost.i-1,ghost.j)){
 				board[ghost.i][ghost.j] = historyboard[ghost.i][ghost.j];
 				ghost.i--;
@@ -473,38 +478,43 @@ function UpdatePositionIceCream() {
 	
 		
 		if (board[ghost.i][ghost.j]==2){
-			startover()
+			pacmanPhoto = 'deadPacman.png';
 			lives=lives-1;
 			score=score -10;
-
+			dead = true;
+			Draw();
+			setTimeout(function(){startover();}, 2000);
 			
-		
-		}
-		if(board[ghost.i][ghost.j]==1){
-			historyboard[ghost.i][ghost.j]=1;}
-		
-		else if(board[ghost.i][ghost.j]==6){
-			historyboard[ghost.i][ghost.j]=6;
-		}
-		else if(board[ghost.i][ghost.j]==5){
-			historyboard[ghost.i][ghost.j]=5;
-		}
-		else if(board[ghost.i][ghost.j]==1.2){
-			historyboard[ghost.i][ghost.j]=1.2;
-		}
-		else if(board[ghost.i][ghost.j]==1.3){
-			historyboard[ghost.i][ghost.j]=1.3;
+			
+
 		}
 		else{
-			historyboard[ghost.i][ghost.j]=0;
-		}
-		board[ghost.i][ghost.j] = ghost.num;
-		
-		draw();
+			if(board[ghost.i][ghost.j]==1){
+				historyboard[ghost.i][ghost.j]=1;}
+			
+			else if(board[ghost.i][ghost.j]==6){
+				historyboard[ghost.i][ghost.j]=6;
+			}
+			else if(board[ghost.i][ghost.j]==5){
+				historyboard[ghost.i][ghost.j]=5;
+			}
+			else if(board[ghost.i][ghost.j]==1.2){
+				historyboard[ghost.i][ghost.j]=1.2;
+			}
+			else if(board[ghost.i][ghost.j]==1.3){
+				historyboard[ghost.i][ghost.j]=1.3;
+			}
+			else{
+				historyboard[ghost.i][ghost.j]=0;
+			}
+			board[ghost.i][ghost.j] = ghost.num;
+		}}
+		Draw();
 	
 		}
 		
 function startover(){
+	dead= false;
 	board[ghost1.i][ghost1.j]= historyboard[ghost1.i][ghost1.j];
 	board[ghost2.i][ghost2.j]= historyboard[ghost2.i][ghost2.j];
 	board[ghost3.i][ghost3.j]= historyboard[ghost3.i][ghost3.j];
@@ -525,77 +535,91 @@ function startover(){
 	board[shape.i][shape.j] = 0;
 	shape.i = pacman_position[0];
 	shape.j = pacman_position[1];
-	board[shape.i][shape.j] = 2;	
+	board[shape.i][shape.j] = 2;
+	pacmanPhoto = 'right.png';
+	Draw();
 	}
 
 
 function UpdatePosition() {
-	board[shape.i][shape.j] = 0;
-	var x = GetKeyPressed();
-	if (x == 1) {
-		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
-			shape.j--;
-			drawPacman(3)
+	if (!dead){
+		board[shape.i][shape.j] = 0;
+		var x = GetKeyPressed();
+		if (x == 1) {
+			if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
+				shape.j--;
+				drawPacman(3)
+			}
 		}
-	}
-	if (x == 2) {
-		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
-			shape.j++;
-			drawPacman(4)
+		if (x == 2) {
+			if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
+				shape.j++;
+				drawPacman(4)
+			}
 		}
-	}
-	if (x == 3) {
-		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
-			shape.i--;
-			drawPacman(2)
+		if (x == 3) {
+			if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
+				shape.i--;
+				drawPacman(2)
+			}
 		}
-	}
-	if (x == 4) {
-		if (shape.i < 19 && board[shape.i + 1][shape.j] != 4) {
-			shape.i++;
-			drawPacman(1)
+		if (x == 4) {
+			if (shape.i < 19 && board[shape.i + 1][shape.j] != 4) {
+				shape.i++;
+				drawPacman(1)
+			}
 		}
-	}
-	if (board[shape.i][shape.j] == 1) { // recieved regular point
-		score+=5;
-	}
-	if (board[shape.i][shape.j] == 1.2) { // recieved medium point
-		score+=15;
-	}
-	if (board[shape.i][shape.j] == 1.3) { // recieved the big point
-		score+=25;
-	}
-	if (board[shape.i][shape.j] == 5) { // recieved ice cream
-		board[shape.i][shape.j]=2
-		
-		window.clearInterval(interval1);
-		score += 50;
-	}
-	var currentTime = new Date();
-	time_elapsed = (currentTime - start_time + 1000*clock_time) / 1000;
+		if (board[shape.i][shape.j] == 7 || board[shape.i][shape.j] == 8 || board[shape.i][shape.j] == 9 || board[shape.i][shape.j] == 10) { // recieved regular point
+			pacmanPhoto = 'deadPacman.png';
+			lives=lives-1;
+			score=score -10;
+			dead = true;
+			Draw();
+			setTimeout(function(){startover();}, 2000);
+		}
+		if (board[shape.i][shape.j] == 1) { // recieved regular point
+			score+=5;
+		}
+		if (board[shape.i][shape.j] == 1.2) { // recieved medium point
+			score+=15;
+		}
+		if (board[shape.i][shape.j] == 1.3) { // recieved the big point
+			score+=25;
+		}
+		if (board[shape.i][shape.j] == 5) { // recieved ice cream
+			board[shape.i][shape.j]=2
+			
+			window.clearInterval(interval1);
+			score += 50;
+		}
+		var currentTime = new Date();
+		time_elapsed = (currentTime - start_time + 1000*clock_time) / 1000;
 
-	if (board[shape.i][shape.j] == 6 && clock_is_activated){
-		clock_time = -10
-		clock_is_activated = false;		
-	}
-	board[shape.i][shape.j] = 2;
+		if (board[shape.i][shape.j] == 6 && clock_is_activated){
+			clock_time = -10
+			clock_is_activated = false;		
+		}
+		board[shape.i][shape.j] = 2;
 
-	if (score >= 20 && time_elapsed <= 10) {
-		pac_color = "green";
+		if (score >= 20 && time_elapsed <= 10) {
+			pac_color = "green";
+		}
+		if (time_elapsed > 15){
+			clock_is_activated = true;
+		}
+		if (score == 500) {
+			window.clearInterval(interval);
+			window.alert("Game completed");
+		} else {
+			Draw();
+		}
 	}
-	if (time_elapsed > 15){
-		clock_is_activated = true;
-	}
-	if (score == 500) {
-		window.clearInterval(interval);
-		window.alert("Game completed");
-	} else {
-		Draw();
-	}
-
+	Draw();
+}
 	function showWelcomeScreen(){
 		
 	}
+
 	// about modal
 	let modalBtn = document.getElementById("aboutModal")
 	let modal = document.querySelector(".modal")
@@ -617,6 +641,6 @@ function UpdatePosition() {
     modal.style.display = "none"
   	}
 	}
-}
+	
 
 
