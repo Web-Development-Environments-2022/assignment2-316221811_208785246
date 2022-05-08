@@ -19,7 +19,7 @@ var color1 =  "#873a8d";
 var color2 =  "#873a8d";
 var color3 =  "#873a8d";
 var num_balls = 50;
-var pacmanPhoto = 'right.png';
+var pacmanPhoto = 'resources/pacman/right.png';
 clock_is_activated = false;
 var ghostsNum = 4;
 var rowsNum = 10;
@@ -108,7 +108,7 @@ function readyButton(){
 
 function Start() {
 	play()
-	pacmanPhoto = 'right.png';
+	pacmanPhoto = 'resources/pacman/right.png';
 	ghost1.i = 0;
 	ghost1.j = 0;
 	ghost2.i = 0;
@@ -307,14 +307,14 @@ function Draw() {
 				//create ice cream
 				context.beginPath();
 				var img = new Image();
-				img.src = 'ice_cream2.jpg';
+				img.src = 'resources/prizes/ice_cream2.jpg';
 				context.drawImage(img, center.x-30, center.y-30,70,60);
 				context.fill();
 			} else if (board[i][j] == 6 && clock_is_activated){
 				//create clock
 				context.beginPath();
 				var img = new Image();
-				img.src = 'clock_gif.gif';
+				img.src = 'resources/prizes/clock_gif.gif';
 				context.drawImage(img, center.x-30, center.y-30,70,60);
 				context.fill();
 			}
@@ -322,7 +322,7 @@ function Draw() {
 				//create ghost1
 				context.beginPath();
 				var img = new Image();
-				img.src = 'c.jpeg';
+				img.src = 'resources/ghosts/c.jpeg';
 				context.drawImage(img, center.x-30, center.y-30,50,50);
 				context.fill();
 			}
@@ -330,7 +330,7 @@ function Draw() {
 				//create ghost2
 				context.beginPath();
 				var img = new Image();
-				img.src = 'bl.png';
+				img.src = 'resources/ghosts/bl.png';
 				context.drawImage(img, center.x-30, center.y-30,50,50);
 				context.fill();
 			}
@@ -338,7 +338,7 @@ function Draw() {
 				//create ghost3
 				context.beginPath();
 				var img = new Image();
-				img.src = 'or.png';
+				img.src = 'resources/ghosts/or.png';
 				context.drawImage(img, center.x-30, center.y-30,50,50);
 				context.fill();
 			}
@@ -346,7 +346,7 @@ function Draw() {
 				//create ghost4
 				context.beginPath();
 				var img = new Image();
-				img.src = 'pu.png';
+				img.src = 'resources/ghosts/pu.png';
 				context.drawImage(img, center.x-30, center.y-30,50,50);
 				context.fill();
 			}
@@ -357,16 +357,16 @@ function Draw() {
 function drawPacman(direction){
 
 	if (direction == 1){
-		pacmanPhoto = 'right.png';
+		pacmanPhoto = 'resources/pacman/right.png';
 	}
 	else if (direction == 2){
-		pacmanPhoto = 'left.png';
+		pacmanPhoto = 'resources/pacman/left.png';
 	}
 	else if (direction == 3){
-		pacmanPhoto = 'up.png';
+		pacmanPhoto = 'resources/pacman/up.png';
 	}
 	else{
-		pacmanPhoto = 'down.png';
+		pacmanPhoto = 'resources/pacman/down.png';
 	}
 }
 
@@ -523,8 +523,8 @@ function UpdatePositionGhost(ghost){
 	
 		
 		if (board[ghost.i][ghost.j]==2){
-			pacmanPhoto = 'deadPacman.png';
-			var Death = new Audio('Death.mp3');
+			pacmanPhoto = 'resources/pacman/deadPacman.png';
+			var Death = new Audio('resources/sounds/Death.mp3');
 			Death.volume=0.3;
 			Death.play();
 			lives=lives-1;
@@ -584,7 +584,7 @@ function startover(){
 	shape.i = pacman_position[0];
 	shape.j = pacman_position[1];
 	board[shape.i][shape.j] = 2;
-	pacmanPhoto = 'right.png';
+	pacmanPhoto = 'resources/pacman/right.png';
 	Draw();
 	}
 
@@ -618,8 +618,8 @@ function UpdatePosition() {
 			}
 		}
 		if (board[shape.i][shape.j] == 7 || board[shape.i][shape.j] == 8 || board[shape.i][shape.j] == 9 || board[shape.i][shape.j] == 10) { // recieved regular point
-			pacmanPhoto = 'deadPacman.png';
-			var Death = new Audio('Death.mp3');
+			pacmanPhoto = 'resources/pacman/deadPacman.png';
+			var Death = new Audio('resources/sounds/Death.mp3');
 			Death.volume=0.3;
 			Death.play();
 			lives=lives-1;

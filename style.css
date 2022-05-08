@@ -129,3 +129,61 @@ input[type="range"]::-webkit-slider-thumb {
   #up{
       margin-left: 40px;
   }
+
+  #welcomeScreen {
+    position: relative;
+    width: 50%;
+  }
+  
+  /* Make the image responsive */
+  #welcomeScreen img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Style the button and place it in the middle of the container/image */
+  #login {
+    position: absolute;
+    height: 15%;
+    top: 60%;
+    left: 55%;
+    cursor: pointer;
+  }
+
+  #register {
+    position: absolute;
+    height: 15%;
+    top: 60%;
+    left: 30%;
+    cursor: pointer;
+  }
+
+  #logoBlink{
+    position: absolute;
+    height: 35%;
+    top: 15%;
+    left:7%;
+    cursor: pointer;  
+  }
+
+
+  #logo{
+    position: absolute;
+    height: 35%;
+    top: 15%;
+    left:7%;
+    cursor: pointer;  
+  }
+
+
+  #logo:hover{
+    display: none;
+  }
+
+
+
+
+
+
+
+
