@@ -81,13 +81,13 @@ function Start() {
 	score = 0;
 	lives = 5;
 	pac_color = "purple";
-	var cnt = 100;
+	var cnt = 200;
 	var food_remain = 0.6*num_balls;
 	var food_remain_color2 = 0.3*num_balls;
 	var food_remain_color3 = 0.1*num_balls;
 	var pacman_remain = 1;
 	start_time = new Date();
-	for (var i = 0; i < 10; i++) {
+	for (var i = 0; i < 20; i++) {
 		board[i] = new Array();
 		historyboard[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
@@ -176,11 +176,11 @@ function Start() {
 }
 
 function findRandomEmptyCell(board) {
-	var i = Math.floor(Math.random() * 9 + 1);
-	var j = Math.floor(Math.random() * 9 + 1);
+	var i = Math.floor(Math.random() * 19 + 1);
+	var j = Math.floor(Math.random() * 19 + 1);
 	while (board[i][j] != 0) {
-		i = Math.floor(Math.random() * 9 + 1);
-		j = Math.floor(Math.random() * 9 + 1);
+		i = Math.floor(Math.random() * 19 + 1);
+		j = Math.floor(Math.random() * 19 + 1);
 	}
 	return [i, j];
 }
@@ -213,7 +213,7 @@ function Draw() {
 	lblScore.value = score;
 	lblLives.value = lives;
 	lblTime.value = time_elapsed;
-	for (var i = 0; i < 10; i++) {
+	for (var i = 0; i < 20; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
 			center.x = i * 60 + 30;
@@ -273,7 +273,7 @@ function Draw() {
 				//create ghost1
 				context.beginPath();
 				var img = new Image();
-				img.src = 'gr.png';
+				img.src = 'c.jpeg';
 				context.drawImage(img, center.x-30, center.y-30,50,50);
 				context.fill();
 			}
@@ -549,7 +549,7 @@ function UpdatePosition() {
 		}
 	}
 	if (x == 4) {
-		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
+		if (shape.i < 19 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
 			drawPacman(1)
 		}

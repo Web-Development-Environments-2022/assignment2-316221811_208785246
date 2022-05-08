@@ -22,9 +22,6 @@
     color: white;
   }
 
-  #game{
-    background-color: rgb(26, 23, 26);
-  }
 
   .modal {
     display: none;
@@ -85,4 +82,23 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 50%;
     background: #873a8d;
     cursor: ew-resize;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+  
+  #canvas {
+    background-color: rgb(18, 15, 15);
+    display: block;
+    position: absolute;
+    top: 100;
+    left: 0;
+    right: 0;   
+    bottom: 0;
+    width: 80%;
+    height: 87%;
   }
