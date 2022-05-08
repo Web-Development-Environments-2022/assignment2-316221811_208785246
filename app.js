@@ -25,6 +25,11 @@ var ghostsNum = 4;
 var rowsNum = 10;
 var colsNum = 20;
 var dead = false;
+//---default keys---
+var upKey = 38;
+var downKey = 40;
+var leftKey = 37;
+var rightKey = 39;
 
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
@@ -38,6 +43,43 @@ function getRandomColor() {
   function randomIntFromInterval(min, max) { // min and max included 
 	return Math.floor(Math.random() * (max - min + 1) + min)
   }
+
+  function upButton(){
+	addEventListener(
+		"keydown",
+		function(e) {
+			upKey = e.keyCode;
+			document.getElementById("up").value = String.fromCharCode(upKey);
+		}, {once : true});
+		
+	}
+
+function downButton(){
+	addEventListener(
+		"keydown",
+		function(e) {
+			downKey = e.keyCode;
+			document.getElementById("down").value = String.fromCharCode(downKey);
+		}, {once : true});
+	}
+
+function leftButton(){
+	addEventListener(
+		"keydown",
+		function(e) {
+			leftKey = e.keyCode;
+			document.getElementById("left").value = String.fromCharCode(leftKey);
+		}, {once : true});
+	}	
+
+function rightButton(){
+	addEventListener(
+		"keydown",
+		function(e) {
+			rightKey = e.keyCode;
+			document.getElementById("right").value = String.fromCharCode(rightKey);
+		}, {once : true});
+	}
 
 function randomChoose(){
 	color1 = getRandomColor();
@@ -194,16 +236,16 @@ function findRandomEmptyCell(board) {
 
 
 function GetKeyPressed() {
-	if (keysDown[38]) {
+	if (keysDown[upKey]) {
 		return 1;
 	}
-	if (keysDown[40]) {
+	if (keysDown[downKey]) {
 		return 2;
 	}
-	if (keysDown[37]) {
+	if (keysDown[leftKey]) {
 		return 3;
 	}
-	if (keysDown[39]) {
+	if (keysDown[rightKey]) {
 		return 4;
 	}
 }

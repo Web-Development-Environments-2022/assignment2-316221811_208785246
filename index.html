@@ -26,18 +26,18 @@
 			<label for="lblTime">TIME:</label>
 			<input id="lblTime" type="text" />
 		</div>
-		<input type="button" value="PLAY" >
     	<audio id="audio" src="pacman.mp3"></audio>
 		<div class="content" >
 			<div class="screen" id="welcomeScreen"></div>
 			<div class="screen" id="registerScreen"></div>
 			<div class="screen" id="loginScreen"></div>
 			<div class="screen" id="settingsScreen">
-				choose keybinds: <br/>
-				<button up>up</button>
-				<button left>left</button>
-				<button right>right</button>
-				<button down>down</button> <br/>
+				<h3>SETTINGS</h3>
+				Select a direction and then press the desired key: <br/>
+				<input type="button" class="keyboard" id="up" onclick="upButton()" value="^"><br/>
+				<input type="button" class="keyboard" id="left" onclick="leftButton()" value="<">
+				<input type="button" class="keyboard" id="down" onclick="downButton()" value="V">
+				<input type="button" class="keyboard" id="right" onclick="rightButton()" value=">"><br/>
 				number of balls: <br/>
 				<input type="range" id="balls" value="50" name="quantity" min="50" max="90" oninput="this.nextElementSibling.value = this.value">
 				<output>50</output><br/>

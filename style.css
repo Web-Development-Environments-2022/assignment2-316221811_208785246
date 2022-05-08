@@ -102,3 +102,30 @@ input[type="range"]::-webkit-slider-thumb {
     width: 80%;
     height: 87%;
   }
+
+  .keyboard {
+    display: inline-block;
+    padding: 8px 10px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+  
+  .keyboard:hover {background-color: #3e8e41}
+  
+  .keyboard:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+  #up{
+      margin-left: 40px;
+  }
