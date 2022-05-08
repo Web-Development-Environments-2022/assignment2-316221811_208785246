@@ -65,6 +65,7 @@ function readyButton(){
 }
 
 function Start() {
+	play()
 	pacmanPhoto = 'right.png';
 	ghost1.i = 0;
 	ghost1.j = 0;
@@ -208,8 +209,9 @@ function GetKeyPressed() {
 }
 
 function play(){
-	var audio = document.getElementById("audio");
-    audio.play();
+	var background = document.getElementById("audio");
+	background.volume = 0.2;
+    background.play();
 }
 
 function Draw() {
@@ -269,8 +271,9 @@ function Draw() {
 			} else if (board[i][j] == 6 && clock_is_activated){
 				//create clock
 				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "yellow"; //color
+				var img = new Image();
+				img.src = 'clock_gif.gif';
+				context.drawImage(img, center.x-30, center.y-30,70,60);
 				context.fill();
 			}
 			else if (board[i][j] == 7) {
@@ -479,11 +482,14 @@ function UpdatePositionGhost(ghost){
 		
 		if (board[ghost.i][ghost.j]==2){
 			pacmanPhoto = 'deadPacman.png';
+			var Death = new Audio('Death.mp3');
+			Death.volume=0.3;
+			Death.play();
 			lives=lives-1;
 			score=score -10;
 			dead = true;
 			Draw();
-			setTimeout(function(){startover();}, 2000);
+			setTimeout(function(){startover();}, 2500);
 			
 			
 
@@ -571,11 +577,14 @@ function UpdatePosition() {
 		}
 		if (board[shape.i][shape.j] == 7 || board[shape.i][shape.j] == 8 || board[shape.i][shape.j] == 9 || board[shape.i][shape.j] == 10) { // recieved regular point
 			pacmanPhoto = 'deadPacman.png';
+			var Death = new Audio('Death.mp3');
+			Death.volume=0.3;
+			Death.play();
 			lives=lives-1;
 			score=score -10;
 			dead = true;
 			Draw();
-			setTimeout(function(){startover();}, 2000);
+			setTimeout(function(){startover();}, 2500);
 		}
 		if (board[shape.i][shape.j] == 1) { // recieved regular point
 			score+=5;
