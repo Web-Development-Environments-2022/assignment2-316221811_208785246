@@ -257,14 +257,14 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 
-form, #settingsScreen{
+form, #settingsScreen, #loginScreen{
   color: white;
   background-color:black;
   align-items: center;
 }
 
 /* Full-width inputs */
-input[type=text1], input[type=password] {
+input[type=text1], input[type=password], #userNameText {
   width: 30%;
   padding: 12px 20px;
   margin: 8px 0;

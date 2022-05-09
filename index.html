@@ -28,11 +28,11 @@
 				<input type="image" id="logo" src="resources/welcome_screen/PACMAN_LOGO.png">
 			</div>
 			<div class="screen" id="registerScreen">
-				<form action="action_page.php" method="post">
+				<form action="action_page.php" method="post" id="regForm">
 					<h1>Register:</h1>
 					<div class="container">
 					  <label2 for="uname"><b>Username</b></label2>
-					  <input type="uname" placeholder="Enter Username" name="uname" required>
+					  <input type="uname" id="uname" placeholder="Enter Username" name="uname" required>
 				  
 					  <label2 for="psw"><b>Password</b></label2>
 					  <input type="psw" placeholder="Enter Password" name="psw" required>
@@ -79,26 +79,22 @@
 				</form>
 			  </div>
 			<div class="screen" id="loginScreen">
-				<form action="action_page.php" method="post">
 					<h1>Log in:</h1>
 					<div class="container">
 					  <label1 for="uname"><b>Username</b></label1>
-					  <input type="text1" placeholder="Enter Username" name="uname" required>
-				  
+					  <input type="text" placeholder="Enter Username" name="uname" id="userNameText"></input>
 					  <label1 for="psw"><b>Password</b></label1>
-					  <input type="password" placeholder="Enter Password" name="psw" required>
+					  <input type="password" placeholder="Enter Password" name="psw" id="psw"></input>
 					</br>
 					</br>
-					  <button type="submit" onClick="showSettingsScreen()">Login</button>
+					  <button id="loginButton" onclick="login()">Login</button>
 					  <label1>
 						<input type="checkbox" checked="checked" name="remember"> Remember me
 					  </label1>
 					</div>
 					<div class="imgcontainer">
 						<img src="https://media.giphy.com/media/gYWeVOiMmbg3kzCTq5/giphy.gif" alt="avatar3" class="avatar3">						
-					</div>
-				  
-				  </form>
+					</div>				  
 			</div>
 			<div class="screen" id="settingsScreen">
 				<h1>Settings:</h1>

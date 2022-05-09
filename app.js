@@ -31,6 +31,28 @@ var upKey = 38;
 var downKey = 40;
 var leftKey = 37;
 var rightKey = 39;
+//---users data---
+users = window.localStorage;
+var user;
+//users.setItem("k","k")
+
+function login(){
+	user = document.getElementById("userNameText").value;
+	var password =  document.getElementById("psw").value;
+	if (user in users){
+		if (password == users.getItem(user)){
+			window.alert("hi " + user + ", nice to see you!")
+			showSettingScreen();
+		}
+		else{
+			window.alert("wrong password")
+		}
+	}
+	else{
+		window.alert("not registered yet")
+	}
+}
+
 
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
@@ -265,6 +287,8 @@ function play(){
 
 function Draw() {
 	canvas.width = canvas.width; //clean board
+	context.fillStyle = "white"
+	context.fillText("PLAYER: " + user,10,10,500)
 	lblScore.value = score;
 	lblLives.value = lives;
 	lblTime.value = time_elapsed;
@@ -709,6 +733,7 @@ function UpdatePosition() {
 	Draw();
 }
 
+
 // functions that hide all screens & then show a specific screen
 // these functions also update navigation menu to highlight active screen
 function showSettingScreen() {
@@ -765,8 +790,9 @@ function showSettingScreen() {
 	window.onclick = function(event) {
   	if (event.target == modal) {
    	 modal.style.display = "none";
-  }
-}
+  	}
+	}
+	
 
 	// about modal
 	//let modalBtn = document.getElementById("aboutModal")
