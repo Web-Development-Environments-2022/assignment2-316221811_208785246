@@ -9,6 +9,7 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var background;
 var clock_time = 0;
 var resumeIceCream =true;
 var ghost1 = new Object();
@@ -26,6 +27,7 @@ var ghostsNum = 4;
 var rowsNum = 10;
 var colsNum = 20;
 var dead = false;
+var game_started = false;
 //---default keys---
 var upKey = 38;
 var downKey = 40;
@@ -133,6 +135,7 @@ function readyButton(){
 
 function Start() {
 	play()
+	game_started = true;
 	pacmanPhoto = 'resources/pacman/right.png';
 	ghost1.i = 0;
 	ghost1.j = 0;
@@ -280,7 +283,7 @@ function GetKeyPressed() {
 }
 
 function play(){
-	var background = document.getElementById("audio");
+	background = document.getElementById("audio");
 	background.volume = 0.05;
     background.play();
 }
@@ -635,6 +638,16 @@ function startover(){
 	Draw();
 	}
 
+function stopGame(){
+	window.clearInterval(interval);
+	window.clearInterval(interval1);
+	window.clearInterval(intervalghost1);
+	window.clearInterval(intervalghost2);
+	window.clearInterval(intervalghost3);
+	window.clearInterval(intervalghost4);
+	background.pause();
+	background.currentTime = 0;
+}
 
 function UpdatePosition() {
 	if (!dead){
@@ -724,8 +737,7 @@ function UpdatePosition() {
 		}
 		if (score == 500) {
 			window.alert("Game completed");
-			window.clearInterval(interval);
-
+			stopGame();
 		} else {
 			Draw();
 		}
@@ -743,7 +755,10 @@ function showSettingScreen() {
 	$(".screen").hide();
 	$("#settingsScreen").show();
 	$(".menu").removeClass("active");
-	$(".menu").eq(4).addClass("active"); 
+	$(".menu").eq(4).addClass("active");
+	if (game_started){
+		stopGame();
+	} 
   }
   function showWelcomeScreen() {
 	var cherry = new Audio('resources/sounds/Fruit.mp3');
@@ -752,7 +767,10 @@ function showSettingScreen() {
 	$(".screen").hide();
 	$("#welcomeScreen").show();
 	$(".menu").removeClass("active");
-	$(".menu").eq(1).addClass("active"); 
+	$(".menu").eq(1).addClass("active");
+	if (game_started){
+		stopGame();
+	} 
   }
   function showRegisterScreen() {
 	var cherry = new Audio('resources/sounds/Fruit.mp3');
@@ -761,7 +779,10 @@ function showSettingScreen() {
 	$(".screen").hide();
 	$("#registerScreen").show();
 	$(".menu").removeClass("active");
-	$(".menu").eq(2).addClass("active"); 
+	$(".menu").eq(2).addClass("active");
+	if (game_started){
+		stopGame();
+	} 
   }
 
 
@@ -781,7 +802,10 @@ function showSettingScreen() {
 	$(".screen").hide();
 	$("#loginScreen").show();
 	$(".menu").removeClass("active");
-	$(".menu").eq(3).addClass("active"); 
+	$(".menu").eq(3).addClass("active");
+	if (game_started){
+		stopGame();
+	} 
   }
   	var modalBtn = document.getElementById('aboutModal');
 	let modal = document.querySelector(".modal")
