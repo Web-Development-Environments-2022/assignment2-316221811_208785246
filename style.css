@@ -20,7 +20,7 @@
   
   .menu a.active {
     background-color: yellow;
-    color: white;
+    color: rgb(0, 0, 0);
   }
 
 
@@ -72,7 +72,7 @@
     width: 200px;
     height: 7px;
     border-radius: 5px;
-    background-image: linear-gradient(rgb(213, 203, 218), rgb(199, 162, 218));
+    background-image: linear-gradient(rgb(255, 255, 255), rgb(216, 222, 199));
     background-size: 70% 100%;
   }
 
@@ -81,7 +81,7 @@ input[type="range"]::-webkit-slider-thumb {
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background: #873a8d;
+    background: blue;
     cursor: ew-resize;
   }
 
@@ -136,17 +136,17 @@ input[type="range"]::-webkit-slider-thumb {
     text-align: center;
     text-decoration: none;
     outline: none;
-    color: #fff;
-    background-color: #4CAF50;
+    color: black;
+    background-color: yellow;
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px #999;
   }
   
-  .keyboard:hover {background-color: #3e8e41}
+  .keyboard:hover {background-color: rgb(223, 223, 22)}
   
   .keyboard:active {
-    background-color: #3e8e41;
+    background-color: #8e8b3e;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
   }
@@ -252,12 +252,12 @@ input[type="range"]::-webkit-slider-thumb {
 
 
 
-#loginScreen, #registerScreen{
+#loginScreen, #registerScreen, #settingsScreen{
   background-color: black;
 }
 
 
-form {
+form, #settingsScreen{
   color: white;
   background-color:black;
   align-items: center;
@@ -318,6 +318,7 @@ img.avatar {
   border-radius: 50%;
 }
 
+
 /* Add padding to containers */
 .container {
   padding: 16px;
@@ -331,11 +332,15 @@ span.psw {
 
 /* Change styles for span and cancel button on extra small screens */
 
+.ballOptions{
+    font: 1rem 'Fira Sans', sans-serif;
+}
 
 label1 {
   display: block;
   font: 1rem 'Fira Sans', sans-serif;
 }
+
 
 input1,
 label1 {
@@ -397,3 +402,4 @@ text-align: left;
   color: red;
   cursor: pointer;
 }
+

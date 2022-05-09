@@ -21,6 +21,7 @@ var color3 =  "#873a8d";
 var num_balls = 50;
 var pacmanPhoto = 'resources/pacman/right.png';
 clock_is_activated = false;
+medicine_is_activated = false;
 var ghostsNum = 4;
 var rowsNum = 10;
 var colsNum = 20;
@@ -129,7 +130,6 @@ function Start() {
 	historyboard = new Array();
 	score = 0;
 	lives = 5;
-	pac_color = "purple";
 	var cnt = 200;
 	var food_remain = 0.6*num_balls;
 	var food_remain_color2 = 0.3*num_balls;
@@ -140,7 +140,7 @@ function Start() {
 		board[i] = new Array();
 		historyboard[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
-		// 4 is wall, 1 is dot, 2 is pacman, 0 is empty, 5 for ice cream, 6 for bad clock
+		// 4 is wall, 1 is dot, 2 is pacman, 0 is empty, 5 for ice cream, 6 for clock, 6.5 for medicine
 		for (var j = 0; j < 10; j++) {
 			if (
 				(i == 3 && j == 3) ||
@@ -181,8 +181,13 @@ function Start() {
 			}
 		}
 	}
+	//find future position for medicine and clock
 	var clock_position = findRandomEmptyCell(board);
 	board[clock_position[0]][clock_position[1]] = 6;
+	var medicine_position = findRandomEmptyCell(board);
+	board[medicine_position[0]][medicine_position[1]] = 6.5;
+
+	//add points randomly
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 1;
@@ -319,6 +324,13 @@ function Draw() {
 				img.src = 'resources/prizes/clock_gif.gif';
 				context.drawImage(img, center.x-30, center.y-30,70,60);
 				context.fill();
+			} else if (board[i][j] == 6.5 && medicine_is_activated){
+				//create clock
+				context.beginPath();
+				var img = new Image();
+				img.src = 'resources/prizes/med2.png';
+				context.drawImage(img, center.x-30, center.y-30,70,60);
+				context.fill();
 			}
 			else if (board[i][j] == 7) {
 				//create ghost1
@@ -452,6 +464,9 @@ function UpdatePositionIceCream() {
 			else if(board[icecream.i][icecream.j]==6){
 				historyboard[icecream.i][icecream.j]=6;
 			}
+			else if(board[icecream.i][icecream.j]==6.5){
+				historyboard[icecream.i][icecream.j]=6.5;
+			}
 			board[icecream.i][icecream.j] = 5;
 		}
 	}
@@ -548,6 +563,9 @@ function UpdatePositionGhost(ghost){
 			else if(board[ghost.i][ghost.j]==6){
 				historyboard[ghost.i][ghost.j]=6;
 			}
+			else if(board[ghost.i][ghost.j]==6.5){
+				historyboard[ghost.i][ghost.j]=6.5;
+			}
 			else if(board[ghost.i][ghost.j]==5){
 				historyboard[ghost.i][ghost.j]=5;
 			}
@@ -622,7 +640,7 @@ function UpdatePosition() {
 				drawPacman(1)
 			}
 		}
-		if (board[shape.i][shape.j] == 7 || board[shape.i][shape.j] == 8 || board[shape.i][shape.j] == 9 || board[shape.i][shape.j] == 10) { // recieved regular point
+		if (board[shape.i][shape.j] == 7 || board[shape.i][shape.j] == 8 || board[shape.i][shape.j] == 9 || board[shape.i][shape.j] == 10) { 
 			pacmanPhoto = 'resources/pacman/deadPacman.png';
 			var Death = new Audio('resources/sounds/Death.mp3');
 			Death.volume=0.3;
@@ -667,17 +685,23 @@ function UpdatePosition() {
 			clock_time = -10
 			clock_is_activated = false;		
 		}
+		if (board[shape.i][shape.j] == 6.5 && medicine_is_activated){
+			lives++;
+			medicine_is_activated = false;		
+		}
+
 		board[shape.i][shape.j] = 2;
 
-		if (score >= 20 && time_elapsed <= 10) {
-			pac_color = "green";
-		}
 		if (time_elapsed > 15){
 			clock_is_activated = true;
 		}
+		if (time_elapsed > 5){
+			medicine_is_activated = true;
+		}
 		if (score == 500) {
-			window.clearInterval(interval);
 			window.alert("Game completed");
+			window.clearInterval(interval);
+
 		} else {
 			Draw();
 		}
@@ -689,12 +713,12 @@ function UpdatePosition() {
 // these functions also update navigation menu to highlight active screen
 function showSettingScreen() {
 	var cherry = new Audio('resources/sounds/Fruit.mp3');
-			cherry.volume=0.3;
-			cherry.play();
+	cherry.volume=0.3;
+	cherry.play();
 	$(".screen").hide();
 	$("#settingsScreen").show();
-	//$(".menu").removeClass("active");
-	//$(".menu").eq(0).addClass("active"); // eq(0) = 1st menu item
+	$(".menu").removeClass("active");
+	$(".menu").eq(4).addClass("active"); 
   }
   function showWelcomeScreen() {
 	var cherry = new Audio('resources/sounds/Fruit.mp3');
@@ -702,8 +726,8 @@ function showSettingScreen() {
 	cherry.play();
 	$(".screen").hide();
 	$("#welcomeScreen").show();
-	//$(".menu").removeClass("active");
-	//$(".menu").eq(0).addClass("active"); // eq(0) = 1st menu item
+	$(".menu").removeClass("active");
+	$(".menu").eq(1).addClass("active"); 
   }
   function showRegisterScreen() {
 	var cherry = new Audio('resources/sounds/Fruit.mp3');
@@ -711,19 +735,18 @@ function showSettingScreen() {
 	cherry.play();
 	$(".screen").hide();
 	$("#registerScreen").show();
-	//$(".menu").removeClass("active");
-	//$(".menu").eq(0).addClass("active"); // eq(0) = 1st menu item
+	$(".menu").removeClass("active");
+	$(".menu").eq(2).addClass("active"); 
   }
 
 
   function showGameScreen() {
 	var cherry = new Audio('resources/sounds/Fruit.mp3');
-			cherry.volume=0.3;
-			cherry.play();
+	cherry.volume=0.3;
+	cherry.play();
 	$(".screen").hide();
 	$("#game").show();
-	//$(".menu").removeClass("active");
-	//$(".menu").eq(0).addClass("active"); // eq(0) = 1st menu item
+	$(".menu").removeClass("active");
   }
 
   function showLoginScreen() { 
@@ -732,10 +755,10 @@ function showSettingScreen() {
 	cherry.play();
 	$(".screen").hide();
 	$("#loginScreen").show();
-	//$(".menu").removeClass("active");
-	//$(".menu").eq(0).addClass("active"); // eq(0) = 1st menu item
+	$(".menu").removeClass("active");
+	$(".menu").eq(3).addClass("active"); 
   }
-  var modalBtn = document.getElementById('aboutModal');
+  	var modalBtn = document.getElementById('aboutModal');
 	let modal = document.querySelector(".modal")
 
 // When the user clicks anywhere outside of the modal, close it
@@ -754,7 +777,7 @@ function showSettingScreen() {
 	//}
 	// exit options
 	closeBtn.onclick = function(){
-	modal.style.display = "none"
+		modal.style.display = "none"
 	}
 	document.addEventListener('keydown', function(event){
 		if(event.key === "Escape"){

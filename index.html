@@ -29,7 +29,7 @@
 			</div>
 			<div class="screen" id="registerScreen">
 				<form action="action_page.php" method="post">
-					<h1>register:</h1>
+					<h1>Register:</h1>
 					<div class="container">
 					  <label2 for="uname"><b>Username</b></label2>
 					  <input type="uname" placeholder="Enter Username" name="uname" required>
@@ -37,7 +37,7 @@
 					  <label2 for="psw"><b>Password</b></label2>
 					  <input type="psw" placeholder="Enter Password" name="psw" required>
 					
-					  <label2 for="psw"><b>fullname</b></label2>
+					  <label2 for="psw"><b>Full name</b></label2>
 					  <input type="fullname" placeholder="Enter Full Name" name="psw" required>
 
 					  <label2 for="email"><b>Email</b></label2>
@@ -80,7 +80,7 @@
 			  </div>
 			<div class="screen" id="loginScreen">
 				<form action="action_page.php" method="post">
-					<h1>log in:</h1>
+					<h1>Log in:</h1>
 					<div class="container">
 					  <label1 for="uname"><b>Username</b></label1>
 					  <input type="text1" placeholder="Enter Username" name="uname" required>
@@ -95,34 +95,34 @@
 					  </label1>
 					</div>
 					<div class="imgcontainer">
-						<img src="https://media.giphy.com/media/gYWeVOiMmbg3kzCTq5/giphy.gif" alt="Avatar" class="avatar">
-					  </div>
+						<img src="https://media.giphy.com/media/gYWeVOiMmbg3kzCTq5/giphy.gif" alt="avatar3" class="avatar3">						
+					</div>
 				  
 				  </form>
 			</div>
 			<div class="screen" id="settingsScreen">
-				<h3>SETTINGS</h3>
-				Select a direction and then press the desired key: <br/>
+				<h1>Settings:</h1>
+				<label1><b>Select a direction and then press the desired key:</b></label1>
 				<input type="button" class="keyboard" id="up" onclick="upButton()" value="^"><br/>
 				<input type="button" class="keyboard" id="left" onclick="leftButton()" value="<">
 				<input type="button" class="keyboard" id="down" onclick="downButton()" value="V">
-				<input type="button" class="keyboard" id="right" onclick="rightButton()" value=">"><br/>
-				number of balls: <br/>
+				<input type="button" class="keyboard" id="right" onclick="rightButton()" value=">"><br/><br/>
+				<label1><b>choose Number of balls:</b></label1>
 				<input type="range" id="balls" value="50" name="quantity" min="50" max="90" oninput="this.nextElementSibling.value = this.value">
 				<output>50</output><br/>
-				choose balls color: <br/>
-				5 points ball
-				choose color <input type="color" id="firstColorPicker" value="#0000ff">
-				<br/> 15 points ball 
-				choose color <input type="color" id="secondColorPicker" value="#0000ff">
-				<br/> 25 points ball
-				choose color <input type="color" id="thirdColorPicker" value="#0000ff"> <br/>
-				game time: <br/>
+				<label1><b>choose balls color:</b></label1>
+				<lable class="ballOptions">5 points ball</lable> <input type="color" id="firstColorPicker" value="#0000ff">
+				<lable class="ballOptions">15 points ball</lable> <input type="color" id="secondColorPicker" value="#0000ff">
+				<lable class="ballOptions">25 points ball</lable> <input type="color" id="thirdColorPicker" value="#0000ff"> <br/>
+				<label1><b>game time:</b></label1>
 				<input type="range" id="gameTime" value="60" min="60" max="120" oninput="this.nextElementSibling.value = this.value">
 				<output>60</output><br/>
-				number of ghosts: <br/>
+				<label1><b>number of ghosts:</b></label1>
 				<input type="range" id="numGhost" value="1" min="1" max="4" oninput="this.nextElementSibling.value = this.value">
 				<output>1</output><br/>
+				<div class="imgcontainer">
+					<img src="https://media.giphy.com/media/0fz5uNPHnoVHLEhAW2/giphy.gif" alt="Avatar" class="avatar">						
+				</div>
 				<button id ="ready" onclick="readyButton()">ready!</button>
 				<button id ="randomChoose" onclick="randomChoose()">choose for me!</button>
 			</div>
@@ -142,12 +142,5 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal">
-  			<div class="modal-content">
-    		<span class="close-btn">&times;</span>
-    		<p>this is the text inside the modal</p>
-  			</div>
-		</div>	
-
 	</body>
 </html>
