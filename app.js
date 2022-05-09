@@ -87,6 +87,7 @@ function randomChoose(){
 	color3 = getRandomColor();
 	ghostsNum = randomIntFromInterval(1, 4);
 	num_balls = randomIntFromInterval(50, 90);
+	showGameScreen()
 	$(document).ready(function() {
 		context = canvas.getContext("2d");
 		Start();
@@ -100,6 +101,7 @@ function readyButton(){
 	color3 = document.getElementById("thirdColorPicker").value;
 	num_balls = document.getElementById("balls").value;
 	ghostsNum = document.getElementById("numGhost").value;
+	showGameScreen()
 	$(document).ready(function() {
 		context = canvas.getContext("2d");
 		Start();
@@ -252,7 +254,7 @@ function GetKeyPressed() {
 
 function play(){
 	var background = document.getElementById("audio");
-	background.volume = 0.2;
+	background.volume = 0.05;
     background.play();
 }
 
@@ -430,6 +432,9 @@ function UpdatePositionIceCream() {
 		if (board[icecream.i][icecream.j]==2){
 			window.clearInterval(interval1);
 			score+=50;
+			var cherry = new Audio('resources/sounds/Fruit.mp3');
+			cherry.volume=0.3;
+			cherry.play();
 			board[icecream.i][icecream.j]=2
 		}
 		else{
@@ -629,15 +634,27 @@ function UpdatePosition() {
 			setTimeout(function(){startover();}, 2500);
 		}
 		if (board[shape.i][shape.j] == 1) { // recieved regular point
+			var chomp = new Audio('resources/sounds/Chomp.mp3');
+			chomp.volume=0.3;
+			chomp.play();
 			score+=5;
 		}
 		if (board[shape.i][shape.j] == 1.2) { // recieved medium point
+			var chomp = new Audio('resources/sounds/Chomp.mp3');
+			chomp.volume=0.3;
+			chomp.play();
 			score+=15;
 		}
 		if (board[shape.i][shape.j] == 1.3) { // recieved the big point
+			var chomp = new Audio('resources/sounds/Chomp.mp3');
+			chomp.volume=0.3;
+			chomp.play();
 			score+=25;
 		}
 		if (board[shape.i][shape.j] == 5) { // recieved ice cream
+			var cherry = new Audio('resources/sounds/Fruit.mp3');
+			cherry.volume=0.3;
+			cherry.play();
 			board[shape.i][shape.j]=2
 			
 			window.clearInterval(interval1);
@@ -671,30 +688,73 @@ function UpdatePosition() {
 // functions that hide all screens & then show a specific screen
 // these functions also update navigation menu to highlight active screen
 function showSettingScreen() {
+	var cherry = new Audio('resources/sounds/Fruit.mp3');
+			cherry.volume=0.3;
+			cherry.play();
 	$(".screen").hide();
 	$("#settingsScreen").show();
 	//$(".menu").removeClass("active");
 	//$(".menu").eq(0).addClass("active"); // eq(0) = 1st menu item
   }
+  function showWelcomeScreen() {
+	var cherry = new Audio('resources/sounds/Fruit.mp3');
+	cherry.volume=0.3;
+	cherry.play();
+	$(".screen").hide();
+	$("#welcomeScreen").show();
+	//$(".menu").removeClass("active");
+	//$(".menu").eq(0).addClass("active"); // eq(0) = 1st menu item
+  }
+  function showRegisterScreen() {
+	var cherry = new Audio('resources/sounds/Fruit.mp3');
+	cherry.volume=0.3;
+	cherry.play();
+	$(".screen").hide();
+	$("#registerScreen").show();
+	//$(".menu").removeClass("active");
+	//$(".menu").eq(0).addClass("active"); // eq(0) = 1st menu item
+  }
 
-  function showLoginScreen() {
+
+  function showGameScreen() {
+	var cherry = new Audio('resources/sounds/Fruit.mp3');
+			cherry.volume=0.3;
+			cherry.play();
 	$(".screen").hide();
 	$("#game").show();
 	//$(".menu").removeClass("active");
 	//$(".menu").eq(0).addClass("active"); // eq(0) = 1st menu item
   }
-  
+
+  function showLoginScreen() { 
+	var cherry = new Audio('resources/sounds/Fruit.mp3');
+	cherry.volume=0.3;
+	cherry.play();
+	$(".screen").hide();
+	$("#loginScreen").show();
+	//$(".menu").removeClass("active");
+	//$(".menu").eq(0).addClass("active"); // eq(0) = 1st menu item
+  }
+  var modalBtn = document.getElementById('aboutModal');
+	let modal = document.querySelector(".modal")
+
+// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+  	if (event.target == modal) {
+   	 modal.style.display = "none";
+  }
+}
 
 	// about modal
-	let modalBtn = document.getElementById("aboutModal")
-	let modal = document.querySelector(".modal")
-	let closeBtn = document.querySelector(".close-btn")
-	modalBtn.onclick = function(){
-  	modal.style.display = "block"
-	}
+	//let modalBtn = document.getElementById("aboutModal")
+	//let modal = document.querySelector(".modal")
+	//let closeBtn = document.querySelector(".close-btn")
+	//modalBtn.onclick = function(){
+  //	modal.style.display = "block"
+	//}
 	// exit options
 	closeBtn.onclick = function(){
-  	modal.style.display = "none"
+	modal.style.display = "none"
 	}
 	document.addEventListener('keydown', function(event){
 		if(event.key === "Escape"){
@@ -706,6 +766,7 @@ function showSettingScreen() {
     modal.style.display = "none"
   	}
 	}
+	
 	
 
 
