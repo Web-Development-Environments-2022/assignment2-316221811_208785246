@@ -97,12 +97,35 @@ input[type="range"]::-webkit-slider-thumb {
     background-color: rgb(18, 15, 15);
     display: block;
     position: absolute;
-    top: 100;
+    top: 0;
     left: 0;
     right: 0;   
     bottom: 0;
-    width: 80%;
-    height: 87%;
+    width: 87%;
+    height: 100%;
+  }
+
+  #score{
+    position: absolute ;  
+    width: 100px;
+    left:87%;
+    font-family: Roboto, sans-serif;
+  }
+
+  #lives{
+    position: absolute ;  
+    width: 100px;
+    left:87%;
+    top: 17%;
+    font-family: Roboto, sans-serif;
+  }
+
+  #time{
+    position: absolute ;  
+    width: 100px;
+    left:87%;
+    top: 32%;
+    font-family: Roboto, sans-serif;
   }
 
   .keyboard {
@@ -130,7 +153,6 @@ input[type="range"]::-webkit-slider-thumb {
 
   #up{
       margin-left: 40px;
-      height: 90%;
   }
 
   #background {
@@ -148,12 +170,37 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
   }
 
+  #login:hover{
+    display: none;
+  }
+
+  #registerHover{
+    position: absolute;
+    height: 15%;
+    top: 60%;
+    left:30%;
+    cursor: pointer;  
+  }
+  
+
   #register {
     position: absolute;
     height: 15%;
     top: 60%;
     left: 30%;
     cursor: pointer;
+  }
+
+  #register:hover{
+    display: none;
+  }
+
+  #loginHover{
+    position: absolute;
+    height: 15%;
+    top: 60%;
+    left:55%;
+    cursor: pointer;  
   }
 
   #logoBlink{
@@ -205,8 +252,148 @@ input[type="range"]::-webkit-slider-thumb {
 
 
 
+#loginScreen, #registerScreen{
+  background-color: black;
+}
+
+
+form {
+  color: white;
+  background-color:black;
+  align-items: center;
+}
+
+/* Full-width inputs */
+input[type=text1], input[type=password] {
+  width: 30%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: blue;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
 
 
 
+/* Center the avatar image inside this container */
+.imgcontainer {
+  margin: 24px 0 12px 0;
+  position: absolute;
+  top: 5%;
+  left: 35%;
+}
 
 
+#imgcontainer2{
+  margin: 24px 0 12px 0;
+  position: absolute;
+  left:50%;
+}
+img.avatar2 {
+  width: 60%;
+  position: absolute;
+  left:17%;
+  top:0%;
+}
+/* Avatar image */
+img.avatar {
+  width: 100%;
+  border-radius: 50%;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+}
+
+/* The "Forgot password" text */
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+
+
+label1 {
+  display: block;
+  font: 1rem 'Fira Sans', sans-serif;
+}
+
+input1,
+label1 {
+  margin: .4rem 0;
+}
+
+label2 {
+  position: relative;
+  display: block;
+  font: 1rem 'Fira Sans', sans-serif;
+
+}
+#start{ 
+  width:14.7%;
+text-align: left;
+}
+#regButton{ 
+  width:15%;
+}
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5px auto; /* 15% from the top and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  /* Position it in the top right corner outside of the modal */
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+/* Close button on hover */
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
