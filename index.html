@@ -4,6 +4,9 @@
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
 		<link rel="stylesheet" href="style.css">
+		<script src=
+		"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+		</script>
 	</head>
 
 	<body>
@@ -12,10 +15,12 @@
 			<a class="menu"onclick="showRegisterScreen()">Register</a>
 			<a class="menu" onclick="showLoginScreen()">Login</a>
 			<a class="menu" onclick="showSettingScreen()">Settings</a>
-			<a class="menu" id="aboutModal" onclick="document.getElementById('id01').style.display='block'">About</a>
-		  </div>
-    	<audio id="audio" src="resources/sounds/pacman.mp3"></audio>
+			<a class="menu" id="myBtn" onclick="showAbout()">About</a>
+		</div>
+    	<audio id="audio" src="resources/sounds/pacman.mp3"></audio> 
+
 		<div class="content" >
+
 			<div class="screen" id="welcomeScreen">
 				<input type="image" id="background" src="resources/welcome_screen/BACKGROUND_NO_BUTTONS_NO_LOGO.png">
 				<input type="image" id="loginClick" src="resources/welcome_screen/BUTTON_LOGIN_PRESSED.png" onclick="showLoginScreen()">
@@ -26,59 +31,49 @@
 				<input type="image" id="register" src="resources/welcome_screen/BUTTON_REGISTER_REGULAR.png" onclick="showRegisterScreen()">
 				<input type="image" id="logoBlink" src="resources/welcome_screen/PACMAN_LOGO_HOVER.png">
 				<input type="image" id="logo" src="resources/welcome_screen/PACMAN_LOGO.png">
+
 			</div>
 			<div class="screen" id="registerScreen">
-					<h1>Register:</h1>
+				<h1>Register:</h1>
 					<div class="regContainer">
-					  <label2 for="uname"><b>Username</b></label2>
-					  <input type="text" id="registerUserName" placeholder="Enter Username" name="uname">				  
-					  <label2 for="psw"><b>Password</b></label2>
-					  <input type="psw" id="registerPsw" placeholder="Enter Password" name="psw">					
-					  <label2 for="psw"><b>Full name</b></label2>
-					  <input type="text" id="registerName" placeholder="Enter Full Name" name="psw">
-					  <label2 for="email"><b>Email</b></label2>
-					  <input type="text" id="registerEmail" placeholder="Enter E-mail" name="psw">
-					  <label2 for="psw"><b>Birth-Date:</b></label2>
-					  <input type="date" id="registerBirthDate" value="1997-07-22">					  
-					  <br>
-					  <button type="reg" id="regButton" onclick="register()">Register</button>
-					  <br>
+						<span class="error" id="invalid_email">
+							Email is invalid
+						</span>
+						<label2 for="uname"><b>Username</b></label2>
+						<input type="text" id="registerUserName" placeholder="Enter Username" name="uname">				  
+						<label2 for="psw"><b>Password</b></label2>
+						<input type="psw" id="registerPsw" placeholder="Enter Password" name="psw">					
+						<label2 for="psw"><b>Full name</b></label2>
+						<input type="text" id="registerName" placeholder="Enter Full Name" name="psw">
+						<label2 for="email"><b>Email</b></label2>
+						<input type="text" id="registerEmail" placeholder="Enter E-mail" name="psw">
+						<label2 for="psw"><b>Birth-Date:</b></label2>
+						<input type="date" id="registerBirthDate" value="1997-07-22">					  
+						<br>
+						<button type="reg" id="regButton" onclick="register()">Register</button>
+						<br>
 					</div>
 					<div class="imgcontainer2">
 						<img src="https://media0.giphy.com/media/hkqefnFjn2MWVl6xvq/200w.webp?cid=ecf05e4761q3yej93wmphwdfhvpvq8f3eq08gqbaeue7thtv&rid=200w.webp&ct=g" alt="Avatar2" class="avatar2">
-					  </div>
-				  
+					</div>				  
 			</div>
-			<div id="id01" class="modal">
-				<span onclick="document.getElementById('id01').style.display='none'"
-			  class="close" title="Close Modal">&times;</span>
-			  
-				<!-- Modal Content -->
-				<form class="modal-content animate" action="/action_page.php">
-				  
-			  
-				  <div class="container">
-					
 
-				  </div>
-			  
-				</form>
-			  </div>
 			<div class="screen" id="loginScreen">
-					<h1>Log in:</h1>
+				<h1>Log in:</h1>
 					<div class="container">
-					  <label1 for="uname"><b>Username</b></label1>
-					  <input type="text" placeholder="Enter Username" name="uname" id="userNameText"></input>
-					  <label1 for="psw"><b>Password</b></label1>
-					  <input type="password" placeholder="Enter Password" name="psw" id="psw"></input>
-					</br>
-					</br>
-					  <button id="loginButton" onclick="login()">Login</button>
+						<label1 for="uname"><b>Username</b></label1>
+						<input type="text" placeholder="Enter Username" name="uname" id="userNameText"></input>
+						<label1 for="psw"><b>Password</b></label1>
+						<input type="password" placeholder="Enter Password" name="psw" id="psw"></input>
+						</br>
+						</br>
+						<button id="loginButton" onclick="login()">Login</button>
 					</div>
 					<div class="imgcontainer">
 						<img src="https://media.giphy.com/media/gYWeVOiMmbg3kzCTq5/giphy.gif" alt="avatar3" class="avatar3">						
 					</div>				  
 			</div>
+
 			<div class="screen" id="settingsScreen">
 				<h1>Settings:</h1>
 				<label1><b>Select a direction and then press the desired key:</b></label1>
@@ -105,6 +100,7 @@
 				<button id ="ready" onclick="readyButton()">ready!</button>
 				<button id ="randomChoose" onclick="randomChoose()">choose for me!</button>
 			</div>
+
 			<div class="screen" id="game">
 				<canvas id="canvas" height="600" width="1200"></canvas>
 				<div id="score">
@@ -121,5 +117,14 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Modal content -->
+		<div id="myModal" class="modal">			
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p>Some text in the Modal..</p>
+			  </div>			  
+		</div>
+
 	</body>
 </html>

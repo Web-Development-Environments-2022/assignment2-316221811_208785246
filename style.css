@@ -24,48 +24,6 @@
   }
 
 
-  .modal {
-    display: none;
-    position: fixed; 
-    padding-top: 50px;
-    left: 0; 
-    top: 0;
-    width: 100%;
-    height: 100%; 
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  .modal-content {
-    position: relative; 
-    background-color: rgb(199, 162, 218);
-    border-radius: 25px;
-    border: 6px solid rgb(240, 235, 243);
-    padding: 20px; 
-    margin: auto; 
-    width: 75%;  
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-  }
-  .close-btn {
-    float: right; 
-    color: rgb(255, 255, 255); 
-    font-size: 30px;  
-    font-weight: bold;
-  }
-  .close-btn:hover {
-    color: rgba(209, 0, 220, 0.16);
-  }
-  @-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
-  }
-  @keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
-  }
-
   input[type="range"] {
     -webkit-appearance: none;
     margin-right: 15px;
@@ -354,7 +312,7 @@ label2 {
 
 }
 #start{ 
-  width:14.7%;
+width:14.7%;
 text-align: left;
 }
 #regButton{ 
@@ -379,27 +337,35 @@ text-align: left;
 
 /* Modal Content/Box */
 .modal-content {
-  background-color: #fefefe;
-  margin: 5px auto; /* 15% from the top and centered */
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  } 
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+#invalid_email{
+    color: red;
+    font-family: Roboto, sans-serif;
 }
 
-/* The Close Button */
-.close {
-  /* Position it in the top right corner outside of the modal */
-  position: absolute;
-  right: 25px;
-  top: 0;
-  color: #000;
-  font-size: 35px;
-  font-weight: bold;
-}
 
-/* Close button on hover */
-.close:hover,
-.close:focus {
-  color: red;
-  cursor: pointer;
-}
+
+
+
 

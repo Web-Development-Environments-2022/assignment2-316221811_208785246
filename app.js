@@ -55,17 +55,34 @@ function login(){
 	}
 }
 
-function register(){
-	var registerCompleted = false;
-	var regUser = document.getElementById("registerUserName").value;
-	var regPassword =  document.getElementById("registerPsw").value;
-	var fullName = document.getElementById("registerName").value;
-	var email = document.getElementById("registerEmail").value;
-	var date = document.getElementById("registerBirthDate").value;
-	if(!$('#registerUserName').val() || !$('#registerPsw').val() || !$('#registerName').val() || !$('#registerEmail').val()){
-		window.alert("please fill all the details");
+function IsEmail(email) {
+	var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	if (!regex.test(email)) {
+		return false;
 	}
+	else {
+		return true;
+	}
+}
 
+
+$(document).ready(function () {
+	$('.error').hide();
+	$('#regButton').click(function () 
+	{
+		var registerCompleted = false;
+		var regUser = document.getElementById("registerUserName").value;
+		var regPassword =  document.getElementById("registerPsw").value;
+		var fullName = document.getElementById("registerName").value;
+		var email = $('#registerEmail').val();
+		if(!$('#registerUserName').val() || !$('#registerPsw').val() || !$('#registerName').val() || !$('#registerEmail').val()){
+			window.alert("please fill all the details");
+		}
+		if (IsEmail(email) == false) {
+			$('#invalid_email').show();
+		} else{
+			$('#invalid_email').hide();
+		}
 
 	//if (regUser in users){
 	//	window.alert("this user name is already taken");
@@ -74,7 +91,13 @@ function register(){
 	//	users.setItem(regUser, regPassword);
 	//	showLoginScreen();
 	//}
-}
+	});
+	});
+
+
+
+
+
 
 
 function getRandomColor() {
@@ -447,7 +470,6 @@ function findEmptyNeighbor(i,j){
 		options.push(4);
 	}
 	var rand = randomIntFromInterval(0,options.length);
-	//return(1)
 	return(options[rand]);
 
 	
@@ -532,20 +554,16 @@ function UpdatePositionIceCream() {
 
 
 	function UpdatePositionGhost1() {
-		UpdatePositionGhost(ghost1)
-		
+		UpdatePositionGhost(ghost1)		
 	}
 	function UpdatePositionGhost2() {
-		UpdatePositionGhost(ghost2)
-		
+		UpdatePositionGhost(ghost2)		
 	}
 	function UpdatePositionGhost3() {
-		UpdatePositionGhost(ghost3)
-		
+		UpdatePositionGhost(ghost3)		
 	}
 	function UpdatePositionGhost4() {
-		UpdatePositionGhost(ghost4)
-		
+		UpdatePositionGhost(ghost4)		
 	}
 	
 	
@@ -828,38 +846,40 @@ function showSettingScreen() {
 		stopGame();
 	} 
   }
-  	var modalBtn = document.getElementById('aboutModal');
-	let modal = document.querySelector(".modal")
 
-// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-  	if (event.target == modal) {
-   	 modal.style.display = "none";
-  	}
+  function showAbout(){
+	// Get the modal
+	var modal = document.getElementById("myModal");
+
+	// Get the button that opens the modal
+	var btn = document.getElementById("myBtn");
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// When the user clicks on the button, open the modal
+	btn.onclick = function() {
+	modal.style.display = "block";
+	}
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	modal.style.display = "none";
 	}
 	
-
-	// about modal
-	//let modalBtn = document.getElementById("aboutModal")
-	//let modal = document.querySelector(".modal")
-	//let closeBtn = document.querySelector(".close-btn")
-	//modalBtn.onclick = function(){
-  //	modal.style.display = "block"
-	//}
-	// exit options
-	closeBtn.onclick = function(){
-		modal.style.display = "none"
-	}
 	document.addEventListener('keydown', function(event){
 		if(event.key === "Escape"){
 			modal.style.display = "none"
 		}
 	});
-	window.onclick = function(e){
-  	if(e.target == modal){
-    modal.style.display = "none"
-  	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	if (event.target == modal) {
+		modal.style.display = "none";
 	}
+	}		
+}
 	
 	
 
