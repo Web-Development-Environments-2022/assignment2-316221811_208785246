@@ -45,7 +45,7 @@ function login(){
 		if (password == users.getItem(user)){
 			window.alert("hi " + user + ", nice to see you!");
 			showSettingScreen();
-		}
+		} 
 		else{
 			window.alert("wrong password");
 		}
@@ -60,9 +60,7 @@ function IsEmail(email) {
 	if (!regex.test(email)) {
 		return false;
 	}
-	else {
-		return true;
-	}
+	return true;
 }
 
 
@@ -70,34 +68,39 @@ $(document).ready(function () {
 	$('.error').hide();
 	$('#regButton').click(function () 
 	{
-		var registerCompleted = false;
-		var regUser = document.getElementById("registerUserName").value;
-		var regPassword =  document.getElementById("registerPsw").value;
-		var fullName = document.getElementById("registerName").value;
-		var email = $('#registerEmail').val();
 		if(!$('#registerUserName').val() || !$('#registerPsw').val() || !$('#registerName').val() || !$('#registerEmail').val()){
 			window.alert("please fill all the details");
+		} 
+		else{
+			if (($('#registerPsw').val()).length < 6 || !/([0-9]+[a-zA-Z]+)|([a-zA-Z]+[0-9]+)$/.test($('#registerPsw').val())){
+				window.alert("password should contain at least 6 characters (letters and numbers)");
+			} 
+			else{
+				if (!/^[A-Za-z\s]*$/.test($('#registerName').val())){
+					window.alert("invalid full name");
+				} 
+				else{
+					if (IsEmail($('#registerEmail').val()) == false) {
+						$('#invalid_email').show();
+					} 
+					else{
+						$('#invalid_email').hide();
+						// all details are correct, register the user
+						var regUser = document.getElementById("registerUserName").value;
+						var regPassword =  document.getElementById("registerPsw").value;
+						if (regUser in users){
+							window.alert("this user name is already taken");
+						}
+						else{
+							users.setItem(regUser, regPassword);
+							showLoginScreen();
+							}
+					}
+				}
+			}
 		}
-		if (IsEmail(email) == false) {
-			$('#invalid_email').show();
-		} else{
-			$('#invalid_email').hide();
-		}
-
-	//if (regUser in users){
-	//	window.alert("this user name is already taken");
-	//}
-	//else{
-	//	users.setItem(regUser, regPassword);
-	//	showLoginScreen();
-	//}
 	});
 	});
-
-
-
-
-
 
 
 function getRandomColor() {
@@ -171,6 +174,14 @@ function readyButton(){
 	num_balls = document.getElementById("balls").value;
 	ghostsNum = document.getElementById("numGhost").value;
 	showGameScreen()
+	$(document).ready(function() {
+		context = canvas.getContext("2d");
+		Start();
+	});
+}
+
+function startNewGame(){
+	stopGame();
 	$(document).ready(function() {
 		context = canvas.getContext("2d");
 		Start();
