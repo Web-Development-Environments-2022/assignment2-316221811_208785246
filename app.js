@@ -36,23 +36,44 @@ var rightKey = 39;
 //---users data---
 users = window.localStorage;
 var user;
-//users.setItem("k","k")
+users.setItem("k","k");
 
 function login(){
 	user = document.getElementById("userNameText").value;
 	var password =  document.getElementById("psw").value;
 	if (user in users){
 		if (password == users.getItem(user)){
-			window.alert("hi " + user + ", nice to see you!")
+			window.alert("hi " + user + ", nice to see you!");
 			showSettingScreen();
 		}
 		else{
-			window.alert("wrong password")
+			window.alert("wrong password");
 		}
 	}
 	else{
-		window.alert("not registered yet")
+		window.alert("not registered yet");
 	}
+}
+
+function register(){
+	var registerCompleted = false;
+	var regUser = document.getElementById("registerUserName").value;
+	var regPassword =  document.getElementById("registerPsw").value;
+	var fullName = document.getElementById("registerName").value;
+	var email = document.getElementById("registerEmail").value;
+	var date = document.getElementById("registerBirthDate").value;
+	if(!$('#registerUserName').val() || !$('#registerPsw').val() || !$('#registerName').val() || !$('#registerEmail').val()){
+		window.alert("please fill all the details");
+	}
+
+
+	//if (regUser in users){
+	//	window.alert("this user name is already taken");
+	//}
+	//else{
+	//	users.setItem(regUser, regPassword);
+	//	showLoginScreen();
+	//}
 }
 
 

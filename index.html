@@ -28,40 +28,26 @@
 				<input type="image" id="logo" src="resources/welcome_screen/PACMAN_LOGO.png">
 			</div>
 			<div class="screen" id="registerScreen">
-				<form action="action_page.php" method="post" id="regForm">
 					<h1>Register:</h1>
-					<div class="container">
+					<div class="regContainer">
 					  <label2 for="uname"><b>Username</b></label2>
-					  <input type="uname" id="uname" placeholder="Enter Username" name="uname" required>
-				  
+					  <input type="text" id="registerUserName" placeholder="Enter Username" name="uname">				  
 					  <label2 for="psw"><b>Password</b></label2>
-					  <input type="psw" placeholder="Enter Password" name="psw" required>
-					
+					  <input type="psw" id="registerPsw" placeholder="Enter Password" name="psw">					
 					  <label2 for="psw"><b>Full name</b></label2>
-					  <input type="fullname" placeholder="Enter Full Name" name="psw" required>
-
+					  <input type="text" id="registerName" placeholder="Enter Full Name" name="psw">
 					  <label2 for="email"><b>Email</b></label2>
-					  <input type="email" placeholder="Enter E-mail" name="psw" required>
-
+					  <input type="text" id="registerEmail" placeholder="Enter E-mail" name="psw">
 					  <label2 for="psw"><b>Birth-Date:</b></label2>
-					  <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
-					  
-	
+					  <input type="date" id="registerBirthDate" value="1997-07-22">					  
 					  <br>
-					  <button type="reg" id="regButton">Register</button>
+					  <button type="reg" id="regButton" onclick="register()">Register</button>
 					  <br>
-						<input type="checkbox" checked="checked" name="remember"> Remember me
-					  
-					  
-
 					</div>
 					<div class="imgcontainer2">
 						<img src="https://media0.giphy.com/media/hkqefnFjn2MWVl6xvq/200w.webp?cid=ecf05e4761q3yej93wmphwdfhvpvq8f3eq08gqbaeue7thtv&rid=200w.webp&ct=g" alt="Avatar2" class="avatar2">
 					  </div>
 				  
-				  </form>
-
-
 			</div>
 			<div id="id01" class="modal">
 				<span onclick="document.getElementById('id01').style.display='none'"
@@ -88,9 +74,6 @@
 					</br>
 					</br>
 					  <button id="loginButton" onclick="login()">Login</button>
-					  <label1>
-						<input type="checkbox" checked="checked" name="remember"> Remember me
-					  </label1>
 					</div>
 					<div class="imgcontainer">
 						<img src="https://media.giphy.com/media/gYWeVOiMmbg3kzCTq5/giphy.gif" alt="avatar3" class="avatar3">						
