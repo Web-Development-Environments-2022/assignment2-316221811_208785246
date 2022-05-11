@@ -12,6 +12,10 @@
     font-size: 17px;
     font-family: "ＭＳ Ｐゴシック";
   }
+
+  #settings {
+      display: none;
+  }
   
   .menu a:hover {
     background-color: #ddd;

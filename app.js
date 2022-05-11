@@ -628,7 +628,13 @@ function UpdatePositionGhost(ghost){
 			score=score -10;
 			dead = true;
 			Draw();
-			setTimeout(function(){startover();}, 2500);
+			if (lives<=0){
+				stopGame();
+				showGameOver();
+			}
+			else{
+				setTimeout(function(){startover();}, 2500);
+			}
 			
 			
 
@@ -736,7 +742,13 @@ function UpdatePosition() {
 			score=score -10;
 			dead = true;
 			Draw();
-			setTimeout(function(){startover();}, 2500);
+			if (lives<=0){
+				stopGame();
+				showGameOver();
+			}
+			else{
+				setTimeout(function(){startover();}, 2500);
+			}
 		}
 		if (board[shape.i][shape.j] == 1) { // recieved regular point
 			var chomp = new Audio('resources/sounds/Chomp.mp3');
@@ -799,6 +811,9 @@ function UpdatePosition() {
 // functions that hide all screens & then show a specific screen
 // these functions also update navigation menu to highlight active screen
 function showSettingScreen() {
+	if (user!=null){
+		(document.getElementById("settings")).style.display = "block";
+	}
 	var cherry = new Audio('resources/sounds/Fruit.mp3');
 	cherry.volume=0.3;
 	cherry.play();
@@ -888,6 +903,37 @@ function showSettingScreen() {
 	window.onclick = function(event) {
 	if (event.target == modal) {
 		modal.style.display = "none";
+	}
+	}		
+}
+
+function showGameOver(){
+	// Get the modal
+	var modal1 = document.getElementById("gameover");
+
+	//Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// When the user clicks on the button, open the modal
+
+	modal1.style.display = "block";
+	
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	modal1.style.display = "none";
+	}
+	
+	document.addEventListener('keydown', function(event){
+		if(event.key === "Escape"){
+			modal1.style.display = "none"
+		}
+	});
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	if (event.target == modal1) {
+		modal1.style.display = "none";
 	}
 	}		
 }

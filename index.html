@@ -11,7 +11,7 @@
 			<a class="menu active" onclick="showWelcomeScreen()">Welcome </a>
 			<a class="menu"onclick="showRegisterScreen()">Register</a>
 			<a class="menu" onclick="showLoginScreen()">Login</a>
-			<a class="menu" onclick="showSettingScreen()">Settings</a>
+			<a class="menu" id="settings" onclick="showSettingScreen()">Settings</a>
 			<a class="menu" id="myBtn" onclick="showAbout()">About</a>
 		</div>
     	<audio id="audio" src="resources/sounds/pacman.mp3"></audio> 
@@ -121,6 +121,14 @@
 			<div class="modal-content">
 				<span class="close">&times;</span>
 				<p>Some text in the Modal..</p>
+			  </div>			  
+		</div>
+		
+		<!-- Modal Game over content -->
+		<div id="gameover" class="modal">			
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p>Loser!</p>
 			  </div>			  
 		</div>
 
