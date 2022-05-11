@@ -3,7 +3,7 @@ var shape = new Object();
 var icecream = new Object();
 var board;
 var historyboard;
-var score;
+var score = 0;
 var lives;
 var pac_color;
 var start_time;
@@ -189,7 +189,8 @@ function startNewGame(){
 }
 
 function Start() {
-	play()
+	dead = false;
+	play();
 	game_started = true;
 	pacmanPhoto = 'resources/pacman/right.png';
 	ghost1.i = 0;
@@ -698,9 +699,12 @@ function stopGame(){
 	window.clearInterval(interval);
 	window.clearInterval(interval1);
 	window.clearInterval(intervalghost1);
-	window.clearInterval(intervalghost2);
-	window.clearInterval(intervalghost3);
-	window.clearInterval(intervalghost4);
+	if(ghostsNum>1){
+		window.clearInterval(intervalghost2);
+		if(ghostsNum>2){	
+			window.clearInterval(intervalghost3);
+			if(ghostsNum>3){
+				window.clearInterval(intervalghost4);}}}
 	background.pause();
 	background.currentTime = 0;
 }
@@ -909,10 +913,12 @@ function showSettingScreen() {
 
 function showGameOver(){
 	// Get the modal
+	
+	document.getElementById("scoreStr").innerHTML=String(score);
 	var modal1 = document.getElementById("gameover");
 
 	//Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
+	var span1 = document.getElementsByClassName("close1")[0];
 
 	// When the user clicks on the button, open the modal
 
@@ -920,7 +926,7 @@ function showGameOver(){
 	
 
 	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
+	span1.onclick = function() {
 	modal1.style.display = "none";
 	}
 	
