@@ -15,6 +15,9 @@
 			<a class="menu" id="myBtn" onclick="showAbout()">About</a>
 		</div>
     	<audio id="audio" src="resources/sounds/pacman.mp3"></audio> 
+		<audio id="loose" src="resources/sounds/mixkit-laughing-cartoon-creature-414.wav"></audio> 
+		<audio id="win" src="resources/sounds/mixkit-cartoon-monkey-applause-103.wav"></audio> 
+		<audio id="timeEnded" src="resources/sounds/mixkit-sad-game-over-trombone-471.wav"></audio> 
 
 		<div class="content" >
 
@@ -124,13 +127,36 @@
 			  </div>			  
 		</div>
 		
+		<!-- Modal Loser content -->
+		<div id="Loser" class="modal1">			
+			<div class="modal-content2">
+				<span class="close1">&times;</span>
+				<img src="resources/end_game/‏‏loser.JPG" class="EndGamePic">
+					<div class="centered">You've got only <a id="scoreStr1"></a> points</div>
+					<button class ="again" onclick="againButton()">try again</button>
+			</div>
+		</div>	
+
 		<!-- Modal Game over content -->
 		<div id="gameover" class="modal1">			
-			<div class="modal-content1">
+			<div class="modal-content2">
 				<span class="close1">&times;</span>
-				<p>You are better than <a id="scoreStr"></a> points!</p>
-			</div>			  
-		</div>
-
+				<img src="resources/end_game/‏‏gameover1.JPG" class="EndGamePic">
+					<div id="better" class="centered">You are better than <a id="scoreStr"></a> points!</div>
+					<button  id="again" class ="again" onclick="againButton()">try again</button>
+			</div>
+		</div>	
+		
+		
+		<!-- Modal Winner content -->
+		<div id="Winner" class="modal1">			
+			<div class="modal-content2">
+				<span class="close1">&times;</span>
+				<!-- TODO: replace picture to winner -->
+				<img src="resources/end_game/‏‏gameover1.JPG" class="EndGamePic">
+					<div class="centered">WOW!!! You've got <a id="scoreStr2"></a> points!</div>
+					<button class ="again" onclick="againButton()">again?</button>
+			</div>
+		</div>	
 	</body>
 </html>

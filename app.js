@@ -38,6 +38,7 @@ users = window.localStorage;
 var user;
 users.setItem("k","k");
 
+
 function login(){
 	user = document.getElementById("userNameText").value;
 	var password =  document.getElementById("psw").value;
@@ -174,6 +175,24 @@ function readyButton(){
 	num_balls = document.getElementById("balls").value;
 	ghostsNum = document.getElementById("numGhost").value;
 	showGameScreen()
+	$(document).ready(function() {
+		context = canvas.getContext("2d");
+		Start();
+	});
+}
+
+function againButton(){
+	//*********TODO GAME TIME *********/
+	lives=5;
+	score=0;
+	dead=false;
+	var modal = document.getElementById("gameover");
+	modal.style.display = "none";
+	var modal = document.getElementById("Winner");
+	modal.style.display = "none";
+	var modal = document.getElementById("Loser");
+	modal.style.display = "none";
+	showGameScreen();
 	$(document).ready(function() {
 		context = canvas.getContext("2d");
 		Start();
@@ -631,15 +650,22 @@ function UpdatePositionGhost(ghost){
 			Draw();
 			if (lives<=0){
 				stopGame();
-				showGameOver();
-			}
+				showLoser();
+			}			
 			else{
 				setTimeout(function(){startover();}, 2500);
 			}
-			
-			
-
 		}
+		else if(score>50){
+			stopGame();
+			showWinner();
+			}
+		else if(time_elapsed>50){
+				stopGame();
+				showGameOver();
+			}
+
+		
 		else{
 			if(board[ghost.i][ghost.j]==1){
 				historyboard[ghost.i][ghost.j]=1;}
@@ -748,7 +774,7 @@ function UpdatePosition() {
 			Draw();
 			if (lives<=0){
 				stopGame();
-				showGameOver();
+				showLoser();
 			}
 			else{
 				setTimeout(function(){startover();}, 2500);
@@ -801,12 +827,10 @@ function UpdatePosition() {
 		if (time_elapsed > 5){
 			medicine_is_activated = true;
 		}
-		if (score == 500) {
-			window.alert("Game completed");
-			stopGame();
-		} else {
-			Draw();
-		}
+
+
+		Draw();
+		
 	}
 	Draw();
 }
@@ -815,6 +839,12 @@ function UpdatePosition() {
 // functions that hide all screens & then show a specific screen
 // these functions also update navigation menu to highlight active screen
 function showSettingScreen() {
+	var modal = document.getElementById("gameover");
+	modal.style.display = "none";
+	var modal = document.getElementById("Winner");
+	modal.style.display = "none";
+	var modal = document.getElementById("Loser");
+	modal.style.display = "none";
 	if (user!=null){
 		(document.getElementById("settings")).style.display = "block";
 	}
@@ -830,6 +860,12 @@ function showSettingScreen() {
 	} 
   }
   function showWelcomeScreen() {
+	var modal = document.getElementById("gameover");
+	modal.style.display = "none";
+	var modal = document.getElementById("Winner");
+	modal.style.display = "none";
+	var modal = document.getElementById("Loser");
+	modal.style.display = "none";
 	var cherry = new Audio('resources/sounds/Fruit.mp3');
 	cherry.volume=0.3;
 	cherry.play();
@@ -842,6 +878,12 @@ function showSettingScreen() {
 	} 
   }
   function showRegisterScreen() {
+	var modal = document.getElementById("gameover");
+	modal.style.display = "none";
+	var modal = document.getElementById("Winner");
+	modal.style.display = "none";
+	var modal = document.getElementById("Loser");
+	modal.style.display = "none";
 	var cherry = new Audio('resources/sounds/Fruit.mp3');
 	cherry.volume=0.3;
 	cherry.play();
@@ -856,6 +898,12 @@ function showSettingScreen() {
 
 
   function showGameScreen() {
+	var modal = document.getElementById("gameover");
+	modal.style.display = "none";
+	var modal = document.getElementById("Winner");
+	modal.style.display = "none";
+	var modal = document.getElementById("Loser");
+	modal.style.display = "none";
 	var cherry = new Audio('resources/sounds/Fruit.mp3');
 	cherry.volume=0.3;
 	cherry.play();
@@ -865,6 +913,12 @@ function showSettingScreen() {
   }
 
   function showLoginScreen() { 
+	var modal = document.getElementById("gameover");
+	modal.style.display = "none";
+	var modal = document.getElementById("Winner");
+	modal.style.display = "none";
+	var modal = document.getElementById("Loser");
+	modal.style.display = "none";
 	var cherry = new Audio('resources/sounds/Fruit.mp3');
 	cherry.volume=0.3;
 	cherry.play();
@@ -878,6 +932,12 @@ function showSettingScreen() {
   }
 
   function showAbout(){
+	var modal = document.getElementById("gameover");
+	modal.style.display = "none";
+	var modal = document.getElementById("Winner");
+	modal.style.display = "none";
+	var modal = document.getElementById("Loser");
+	modal.style.display = "none";
 	// Get the modal
 	var modal = document.getElementById("myModal");
 
@@ -910,16 +970,54 @@ function showSettingScreen() {
 	}
 	}		
 }
-
 function showGameOver(){
 	// Get the modal
-	
+	background = document.getElementById("timeEnded");
+	background.volume = 0.5;
+    background.play();
 	document.getElementById("scoreStr").innerHTML=String(score);
 	var modal1 = document.getElementById("gameover");
 
 	//Get the <span> element that closes the modal
-	var span1 = document.getElementsByClassName("close1")[0];
+	var span1 = document.getElementsByClassName("close1")[1];
 
+	// When the user clicks on the button, open the modal
+
+	modal1.style.display = "block";
+
+	// When the user clicks on <span> (x), close the modal
+	span1.onclick = function() {
+	modal1.style.display = "none";
+	}
+	
+	document.addEventListener('keydown', function(event){
+		if(event.key === "Escape"){
+			modal1.style.display = "none"
+		}
+	});
+
+
+	
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+		modal1.style.display = "none";
+	}
+			
+}
+
+
+	
+function showLoser(){
+	// Get the modal
+	
+	document.getElementById("scoreStr1").innerHTML=String(score);
+	var modal1 = document.getElementById("Loser");
+
+	//Get the <span> element that closes the modal
+	var span2 = document.getElementsByClassName("close1")[0];
+	background = document.getElementById("loose");
+	background.volume = 0.5;
+    background.play();
 	// When the user clicks on the button, open the modal
 
 	modal1.style.display = "block";
@@ -935,15 +1033,43 @@ function showGameOver(){
 			modal1.style.display = "none"
 		}
 	});
-
+	
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
-	if (event.target == modal1) {
+		modal1.style.display = "none";
+	}
+			
+}
+
+function showWinner(){
+	// Get the modal
+	
+	document.getElementById("scoreStr2").innerHTML=String(score);
+	var modal1 = document.getElementById("Winner");
+
+	//Get the <span> element that closes the modal
+	var span1 = document.getElementsByClassName("close1")[2];
+
+	// open the modal
+
+	modal1.style.display = "block";
+	background = document.getElementById("win");
+	background.volume = 0.5;
+    background.play();
+
+	// When the user clicks on <span> (x), close the modal
+	span1.onclick = function() {
+	modal1.style.display = "none";
+	}
+	
+	document.addEventListener('keydown', function(event){
+		if(event.key === "Escape"){
+			modal1.style.display = "none"
+		}
+	});
+	
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
 		modal1.style.display = "none";
 	}
 	}		
-}
-	
-	
-
-
