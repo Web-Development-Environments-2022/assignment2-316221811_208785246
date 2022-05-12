@@ -160,6 +160,17 @@ function randomChoose(){
 	color3 = getRandomColor();
 	ghostsNum = randomIntFromInterval(1, 4);
 	num_balls = randomIntFromInterval(50, 90);
+	//write chosen settings next to the game
+	document.getElementById("ballsnumber").innerHTML=String(num_balls);
+	document.getElementById("dot1").style.backgroundColor = color1;
+	document.getElementById("dot2").style.backgroundColor = color2;
+	document.getElementById("dot3").style.backgroundColor = color3;
+	document.getElementById("up1").textContent = "^";
+	document.getElementById("right1").textContent = ">";
+	document.getElementById("left1").textContent = "<";
+	document.getElementById("down1").textContent = "V";
+	document.getElementById("ghostsnumber").innerHTML=String(ghostsNum);
+	document.getElementById("gameseconds").innerHTML=String(ghostsNum); //TDOD GAME TIME
 	showGameScreen()
 	$(document).ready(function() {
 		context = canvas.getContext("2d");
@@ -174,6 +185,17 @@ function readyButton(){
 	color3 = document.getElementById("thirdColorPicker").value;
 	num_balls = document.getElementById("balls").value;
 	ghostsNum = document.getElementById("numGhost").value;
+	//write chosen settings next to the game
+	document.getElementById("ballsnumber").innerHTML=String(num_balls);
+	document.getElementById("dot1").style.backgroundColor = color1;
+	document.getElementById("dot2").style.backgroundColor = color2;
+	document.getElementById("dot3").style.backgroundColor = color3;
+	document.getElementById("up1").textContent = String.fromCharCode(upKey);
+	document.getElementById("right1").textContent = String.fromCharCode(rightKey)
+	document.getElementById("left1").textContent = String.fromCharCode(leftKey)
+	document.getElementById("down1").textContent = String.fromCharCode(downKey)
+	document.getElementById("ghostsnumber").innerHTML=String(ghostsNum);
+	document.getElementById("gameseconds").innerHTML=String(ghostsNum); //TDOD GAME TIME
 	showGameScreen()
 	$(document).ready(function() {
 		context = canvas.getContext("2d");

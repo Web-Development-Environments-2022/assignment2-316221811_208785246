@@ -78,7 +78,7 @@ input[type="range"]::-webkit-slider-thumb {
     position: absolute ;  
     width: 100px;
     left:87%;
-    top: 45%;
+    top: 80%;
     background-color: yellow;
     color: white;
     padding: 14px 20px;
@@ -88,11 +88,65 @@ input[type="range"]::-webkit-slider-thumb {
     width: 11%;
   }
 
+
+
   #lives{
     position: absolute ;  
     width: 100px;
     left:87%;
     top: 17%;
+    font-family: Roboto, sans-serif;
+  }
+
+  .dot {
+    top: 45%;
+    width: 100px;
+    position: absolute ;  
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+  }
+  #dot1 {
+    left:5%;
+  }
+  #dot2 {
+    left:35%;
+  }
+  #dot3 {
+    left:65%;
+  }
+  .keysettings{
+    left: 65%;
+    width: 100px;
+    position: absolute ;
+    height: 18px;
+    width: 18px;
+    background-color: yellow;
+    border-radius: 15%;
+    box-shadow: 0 9px #999; 
+  }
+  #left1 {
+    left:5%;
+    top: 120%;
+  }
+  #down1 {
+    left:25%;
+    top: 120%;
+  }
+  #right1 {
+    left:45%;
+    top: 120%;
+  }
+  #up1 {
+    left:25%;
+    top: 104%;
+  }
+
+  #chosenSettings{
+    position: absolute ;  
+    width: 100px;
+    left:87%;
+    top: 42%;
     font-family: Roboto, sans-serif;
   }
 
