@@ -8,9 +8,12 @@ var lives;
 var pac_color;
 var start_time;
 var time_elapsed;
+var maxtime=60;
 var interval;
 var background;
 var clock_time = 0;
+var clockactive =false;
+var dots;
 var resumeIceCream =true;
 var ghost1 = new Object();
 var ghost2 = new Object();
@@ -160,6 +163,7 @@ function randomChoose(){
 	color3 = getRandomColor();
 	ghostsNum = randomIntFromInterval(1, 4);
 	num_balls = randomIntFromInterval(50, 90);
+	maxTime = randomIntFromInterval(60, 120);
 	//write chosen settings next to the game
 	document.getElementById("ballsnumber").innerHTML=String(num_balls);
 	document.getElementById("dot1").style.backgroundColor = color1;
@@ -170,7 +174,7 @@ function randomChoose(){
 	document.getElementById("left1").textContent = "<";
 	document.getElementById("down1").textContent = "V";
 	document.getElementById("ghostsnumber").innerHTML=String(ghostsNum);
-	document.getElementById("gameseconds").innerHTML=String(ghostsNum); //TDOD GAME TIME
+	document.getElementById("gameseconds").innerHTML=String(maxTime); //TDOD GAME TIME
 	showGameScreen()
 	$(document).ready(function() {
 		context = canvas.getContext("2d");
@@ -179,12 +183,12 @@ function randomChoose(){
 }
 
 function readyButton(){
-	//*********TODO GAME TIME *********/
 	color1 = document.getElementById("firstColorPicker").value;
 	color2 = document.getElementById("secondColorPicker").value;
 	color3 = document.getElementById("thirdColorPicker").value;
 	num_balls = document.getElementById("balls").value;
 	ghostsNum = document.getElementById("numGhost").value;
+	maxTime = document.getElementById("gameTime").value;
 	//write chosen settings next to the game
 	document.getElementById("ballsnumber").innerHTML=String(num_balls);
 	document.getElementById("dot1").style.backgroundColor = color1;
@@ -195,7 +199,7 @@ function readyButton(){
 	document.getElementById("left1").textContent = String.fromCharCode(leftKey)
 	document.getElementById("down1").textContent = String.fromCharCode(downKey)
 	document.getElementById("ghostsnumber").innerHTML=String(ghostsNum);
-	document.getElementById("gameseconds").innerHTML=String(ghostsNum); //TDOD GAME TIME
+	document.getElementById("gameseconds").innerHTML=String(maxTime); 
 	showGameScreen()
 	$(document).ready(function() {
 		context = canvas.getContext("2d");
@@ -204,7 +208,7 @@ function readyButton(){
 }
 
 function againButton(){
-	//*********TODO GAME TIME *********/
+	start_time=new Date();
 	lives=5;
 	score=0;
 	dead=false;
@@ -222,6 +226,12 @@ function againButton(){
 }
 
 function startNewGame(){
+	var modal = document.getElementById("gameover");
+	modal.style.display = "none";
+	var modal = document.getElementById("Winner");
+	modal.style.display = "none";
+	var modal = document.getElementById("Loser");
+	modal.style.display = "none";
 	stopGame();
 	$(document).ready(function() {
 		context = canvas.getContext("2d");
@@ -230,9 +240,11 @@ function startNewGame(){
 }
 
 function Start() {
+	clockactive =false;
 	dead = false;
 	play();
 	game_started = true;
+	dots= num_balls;
 	pacmanPhoto = 'resources/pacman/right.png';
 	ghost1.i = 0;
 	ghost1.j = 0;
@@ -567,6 +579,9 @@ function UpdatePositionIceCream() {
 		if (board[icecream.i][icecream.j]==2){
 			window.clearInterval(interval1);
 			score+=50;
+			if (historyboard[icecream.i][icecream.j]==1||historyboard[icecream.i][icecream.j]==1.2||historyboard[icecream.i][icecream.j]==1.3){
+				dots--;
+			}
 			var cherry = new Audio('resources/sounds/Fruit.mp3');
 			cherry.volume=0.3;
 			cherry.play();
@@ -669,6 +684,9 @@ function UpdatePositionGhost(ghost){
 			lives=lives-1;
 			score=score -10;
 			dead = true;
+			if (historyboard[ghost.i][ghost.j]==1||historyboard[ghost.i][ghost.j]==1.2||historyboard[ghost.i][ghost.j]==1.3){
+				dots--;
+			}
 			Draw();
 			if (lives<=0){
 				stopGame();
@@ -678,15 +696,17 @@ function UpdatePositionGhost(ghost){
 				setTimeout(function(){startover();}, 2500);
 			}
 		}
-		else if(score>50){
-			stopGame();
-			showWinner();
-			}
-		else if(time_elapsed>50){
+
+		else if(time_elapsed>=maxTime){
 				stopGame();
 				showGameOver();
 			}
-
+		else if(maxTime-time_elapsed<=11 && clockactive==false){
+			clockactive = true;
+			clock = document.getElementById("clock");
+			clock.volume = 1;
+    		clock.play();
+			}
 		
 		else{
 			if(board[ghost.i][ghost.j]==1){
@@ -793,6 +813,9 @@ function UpdatePosition() {
 			lives=lives-1;
 			score=score -10;
 			dead = true;
+			if (historyboard[shape.i][shape.j]==1||historyboard[shape.i][shape.j]==1.2||historyboard[shape.i][shape.j]==1.3){
+				dots--;
+			}
 			Draw();
 			if (lives<=0){
 				stopGame();
@@ -805,20 +828,27 @@ function UpdatePosition() {
 		if (board[shape.i][shape.j] == 1) { // recieved regular point
 			var chomp = new Audio('resources/sounds/Chomp.mp3');
 			chomp.volume=0.3;
+			dots--;
 			chomp.play();
 			score+=5;
 		}
 		if (board[shape.i][shape.j] == 1.2) { // recieved medium point
 			var chomp = new Audio('resources/sounds/Chomp.mp3');
 			chomp.volume=0.3;
+			dots--;
 			chomp.play();
 			score+=15;
 		}
 		if (board[shape.i][shape.j] == 1.3) { // recieved the big point
 			var chomp = new Audio('resources/sounds/Chomp.mp3');
 			chomp.volume=0.3;
+			dots--;
 			chomp.play();
 			score+=25;
+		}
+		if(dots<=0){
+			stopGame();
+			showWinner();
 		}
 		if (board[shape.i][shape.j] == 5) { // recieved ice cream
 			var cherry = new Audio('resources/sounds/Fruit.mp3');
@@ -832,13 +862,27 @@ function UpdatePosition() {
 		var currentTime = new Date();
 		time_elapsed = (currentTime - start_time + 1000*clock_time) / 1000;
 
+
 		if (board[shape.i][shape.j] == 6 && clock_is_activated){
 			clock_time = -10
-			clock_is_activated = false;		
+			clock_is_activated = false;	
+			var cherry = new Audio('resources/sounds/button-3.mp3');
+			cherry.volume=0.3;
+			cherry.play();
+			clock = document.getElementById("clock");
+			clockactive=false;
+    		clock.pause();
+
+
+				
 		}
 		if (board[shape.i][shape.j] == 6.5 && medicine_is_activated){
 			lives++;
-			medicine_is_activated = false;		
+			medicine_is_activated = false;
+			var cherry = new Audio('resources/sounds/button-3.mp3');
+			cherry.volume=0.3;
+			cherry.play();	
+	
 		}
 
 		board[shape.i][shape.j] = 2;
@@ -849,6 +893,7 @@ function UpdatePosition() {
 		if (time_elapsed > 5){
 			medicine_is_activated = true;
 		}
+
 
 
 		Draw();
@@ -994,6 +1039,8 @@ function showSettingScreen() {
 }
 function showGameOver(){
 	// Get the modal
+	clock = document.getElementById("clock");
+    		clock.pause();
 	background = document.getElementById("timeEnded");
 	background.volume = 0.5;
     background.play();
@@ -1031,7 +1078,8 @@ function showGameOver(){
 	
 function showLoser(){
 	// Get the modal
-	
+	clock = document.getElementById("clock");
+    		clock.pause();
 	document.getElementById("scoreStr1").innerHTML=String(score);
 	var modal1 = document.getElementById("Loser");
 
@@ -1065,6 +1113,9 @@ function showLoser(){
 
 function showWinner(){
 	// Get the modal
+	clock = document.getElementById("clock");
+			clock.volume = 0.05;
+    		clock.pause();
 	
 	document.getElementById("scoreStr2").innerHTML=String(score);
 	var modal1 = document.getElementById("Winner");

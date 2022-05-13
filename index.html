@@ -18,6 +18,7 @@
 		<audio id="loose" src="resources/sounds/mixkit-laughing-cartoon-creature-414.wav"></audio> 
 		<audio id="win" src="resources/sounds/mixkit-cartoon-monkey-applause-103.wav"></audio> 
 		<audio id="timeEnded" src="resources/sounds/mixkit-sad-game-over-trombone-471.wav"></audio> 
+		<audio id="clock" src="resources/sounds/mixkit-tick-tock-clock-close-up-1059.wav"></audio> 
 
 		<div class="content" >
 
@@ -169,9 +170,9 @@
 			<div class="modal-content2">
 				<span class="close1">&times;</span>
 				<!-- TODO: replace picture to winner -->
-				<img src="resources/end_game/‏‏gameover1.JPG" class="EndGamePic">
-					<div class="centered">WOW!!! You've got <a id="scoreStr2"></a> points!</div>
-					<button class ="again" onclick="againButton()">again?</button>
+				<img src="resources/end_game/‏‏winner.JPG" class="EndGamePic">
+					<div id=winnerText class="centered">WOW!!! You've got <a id="scoreStr2"></a> points!</div>
+					<button id = winnerButton class ="again" onclick="againButton()">again?</button>
 			</div>
 		</div>	
 	</body>
