@@ -46,8 +46,7 @@ function login(){
 	user = document.getElementById("userNameText").value;
 	var password =  document.getElementById("psw").value;
 	if (user in users){
-		if (password == users.getItem(user)){
-			window.alert("hi " + user + ", nice to see you!");
+		if (password == users.getItem(user)){			
 			showSettingScreen();
 		} 
 		else{

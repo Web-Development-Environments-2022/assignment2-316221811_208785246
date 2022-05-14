@@ -643,3 +643,7 @@ text-align: left;
       letter-spacing: 2px;
       font-weight: lighter;
   }
+
+  #aboutText{
+    font-family: "BN machine";
+  }
