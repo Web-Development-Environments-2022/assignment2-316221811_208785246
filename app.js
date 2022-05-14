@@ -172,7 +172,7 @@ function randomChoose(){
 	document.getElementById("up1").textContent = "^";
 	document.getElementById("right1").textContent = ">";
 	document.getElementById("left1").textContent = "<";
-	document.getElementById("down1").textContent = "V";
+	document.getElementById("down1").textContent = "v";
 	document.getElementById("ghostsnumber").innerHTML=String(ghostsNum);
 	document.getElementById("gameseconds").innerHTML=String(maxTime); //TDOD GAME TIME
 	showGameScreen()
@@ -194,10 +194,18 @@ function readyButton(){
 	document.getElementById("dot1").style.backgroundColor = color1;
 	document.getElementById("dot2").style.backgroundColor = color2;
 	document.getElementById("dot3").style.backgroundColor = color3;
-	document.getElementById("up1").textContent = String.fromCharCode(upKey);
-	document.getElementById("right1").textContent = String.fromCharCode(rightKey)
-	document.getElementById("left1").textContent = String.fromCharCode(leftKey)
-	document.getElementById("down1").textContent = String.fromCharCode(downKey)
+	if (upKey == 38 && downKey == 40 && leftKey == 37 && rightKey == 39){
+		document.getElementById("up1").textContent = "^";
+		document.getElementById("right1").textContent = ">";
+		document.getElementById("left1").textContent = "<";
+		document.getElementById("down1").textContent = "v";
+	}
+	else{
+		document.getElementById("up1").textContent = String.fromCharCode(upKey);
+		document.getElementById("right1").textContent = String.fromCharCode(rightKey)
+		document.getElementById("left1").textContent = String.fromCharCode(leftKey)
+		document.getElementById("down1").textContent = String.fromCharCode(downKey)
+	}
 	document.getElementById("ghostsnumber").innerHTML=String(ghostsNum);
 	document.getElementById("gameseconds").innerHTML=String(maxTime); 
 	showGameScreen()
@@ -275,7 +283,7 @@ function Start() {
 	for (var i = 0; i < 20; i++) {
 		board[i] = new Array();
 		historyboard[i] = new Array();
-		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
+		//put obstacles
 		// 4 is wall, 1 is dot, 2 is pacman, 0 is empty, 5 for ice cream, 6 for clock, 6.5 for medicine
 		for (var j = 0; j < 10; j++) {
 			if (
@@ -385,8 +393,6 @@ function findRandomEmptyCell(board) {
 	}
 	return [i, j];
 }
-
-
 
 
 function GetKeyPressed() {
@@ -550,9 +556,9 @@ function findEmptyNeighbor(i,j){
 	}
 	var rand = randomIntFromInterval(0,options.length);
 	return(options[rand]);
-
-	
 }
+
+
 function availableCell(i,j){
 	if(board[i,j]!=4 && board[i,j]!=2){
 		return true;
@@ -562,7 +568,6 @@ function availableCell(i,j){
 
 
 function UpdatePositionIceCream() {			
-	//var x=1;
 	if (!dead){
 
 		var x = findEmptyNeighbor(icecream.i,icecream.j);
@@ -599,10 +604,7 @@ function UpdatePositionIceCream() {
 			board[icecream.i][icecream.j]=2
 			canvas.style.backgroundColor = 'pink';
 			Draw();
-			setTimeout(function(){canvas.style.backgroundColor = 'black';}, 2000);
-			
-			
-
+			setTimeout(function(){canvas.style.backgroundColor = 'black';}, 2000);			
 		}
 		else{
 			if(board[icecream.i][icecream.j]==1){
@@ -899,11 +901,8 @@ function UpdatePosition() {
 			canvas.style.backgroundColor = 'lightblue';
 			Draw();
 			setTimeout(function(){canvas.style.backgroundColor = 'black';}, 2000);
-
-
-
-				
 		}
+
 		if (board[shape.i][shape.j] == 6.5 && medicine_is_activated){
 			lives++;
 			medicine_is_activated = false;
@@ -920,11 +919,7 @@ function UpdatePosition() {
 		if (time_elapsed > 5){
 			medicine_is_activated = true;
 		}
-
-
-
 		Draw();
-		
 	}
 	Draw();
 }
@@ -953,6 +948,7 @@ function showSettingScreen() {
 		stopGame();
 	} 
   }
+
   function showWelcomeScreen() {
 	var modal = document.getElementById("gameover");
 	modal.style.display = "none";
@@ -971,6 +967,7 @@ function showSettingScreen() {
 		stopGame();
 	} 
   }
+
   function showRegisterScreen() {
 	var modal = document.getElementById("gameover");
 	modal.style.display = "none";
@@ -989,7 +986,6 @@ function showSettingScreen() {
 		stopGame();
 	} 
   }
-
 
   function showGameScreen() {
 	var modal = document.getElementById("gameover");

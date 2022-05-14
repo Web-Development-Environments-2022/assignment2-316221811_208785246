@@ -16,6 +16,10 @@
   #settings {
       display: none;
   }
+
+  output{
+    font-family: "BN machine"; 
+  }
   
   .menu a:hover {
     background-color: #ddd;
