@@ -5,7 +5,6 @@ var board;
 var historyboard;
 var score = 0;
 var lives;
-var pac_color;
 var start_time;
 var time_elapsed;
 var maxtime=60;
@@ -242,6 +241,7 @@ function startNewGame(){
 }
 
 function Start() {
+	start_time = new Date();
 	num_dots = 0;
 	clockactive = false;
 	dead = false;
@@ -597,6 +597,12 @@ function UpdatePositionIceCream() {
 			cherry.volume=0.3;
 			cherry.play();
 			board[icecream.i][icecream.j]=2
+			canvas.style.backgroundColor = 'pink';
+			Draw();
+			setTimeout(function(){canvas.style.backgroundColor = 'black';}, 2000);
+			
+			
+
 		}
 		else{
 			if(board[icecream.i][icecream.j]==1){
@@ -695,9 +701,6 @@ function UpdatePositionGhost(ghost){
 			lives=lives-1;
 			score=score -10;
 			dead = true;
-			//if (historyboard[ghost.i][ghost.j]==1||historyboard[ghost.i][ghost.j]==1.2||historyboard[ghost.i][ghost.j]==1.3){
-			//	dots--;
-			//}
 			Draw();
 			if (lives<=0){
 				stopGame();
@@ -869,11 +872,16 @@ function UpdatePosition() {
 			cherry.volume=0.3;
 			cherry.play();
 			board[shape.i][shape.j]=2
+			canvas.style.backgroundColor = 'pink';
+			Draw();
+			setTimeout(function(){canvas.style.backgroundColor = 'black';}, 2000);
 			if (historyboard[shape.i][shape.j] == 1 || historyboard[shape.i][shape.j] == 1.2 || historyboard[shape.i][shape.j] == 1.3){
 				dots--;
 			}
 			window.clearInterval(interval1);
 			score += 50;
+			
+
 		}
 		var currentTime = new Date();
 		time_elapsed = (currentTime - start_time + 1000*clock_time) / 1000;
@@ -888,6 +896,10 @@ function UpdatePosition() {
 			clock = document.getElementById("clock");
 			clockactive=false;
     		clock.pause();
+			canvas.style.backgroundColor = 'lightblue';
+			Draw();
+			setTimeout(function(){canvas.style.backgroundColor = 'black';}, 2000);
+
 
 
 				
@@ -898,7 +910,6 @@ function UpdatePosition() {
 			var cherry = new Audio('resources/sounds/button-3.mp3');
 			cherry.volume=0.3;
 			cherry.play();	
-	
 		}
 
 		board[shape.i][shape.j] = 2;
