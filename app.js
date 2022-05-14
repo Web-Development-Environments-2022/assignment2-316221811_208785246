@@ -22,7 +22,8 @@ var ghost4 = new Object();
 var color1 =  "#873a8d";
 var color2 =  "#873a8d";
 var color3 =  "#873a8d";
-var num_balls = 50;
+var num_balls;
+var num_dots = 0; // in order to calculate the end of the game
 var pacmanPhoto = 'resources/pacman/right.png';
 clock_is_activated = false;
 medicine_is_activated = false;
@@ -209,6 +210,7 @@ function readyButton(){
 
 function againButton(){
 	start_time=new Date();
+	dots = num_dots;
 	lives=5;
 	score=0;
 	dead=false;
@@ -240,11 +242,11 @@ function startNewGame(){
 }
 
 function Start() {
-	clockactive =false;
+	num_dots = 0;
+	clockactive = false;
 	dead = false;
 	play();
 	game_started = true;
-	dots= num_balls;
 	pacmanPhoto = 'resources/pacman/right.png';
 	ghost1.i = 0;
 	ghost1.j = 0;
@@ -280,7 +282,13 @@ function Start() {
 				(i == 3 && j == 3) ||
 				(i == 3 && j == 4) ||
 				(i == 3 && j == 5) ||
-				(i == 6 && j == 1) || (i==15 &&j==9)||
+				(i == 6 && j == 1) || 
+				(i == 15 && j == 9) ||
+				(i == 13 && j == 8) ||
+				(i == 12 && j == 4) ||
+				(i == 10 && j == 2) ||
+				(i == 8 && j == 3) ||
+				(i == 6 && j == 6) ||
 				(i == 6 && j == 2)
 			)
 			{
@@ -301,6 +309,7 @@ function Start() {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
+					num_dots++;
 					board[i][j] = 1;
 				} 
 				else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
@@ -326,17 +335,21 @@ function Start() {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 1;
 		food_remain--;
+		num_dots++;
 	}
 	while (food_remain_color2 > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 1.2;
 		food_remain_color2--;
+		num_dots++;
 	}
 	while (food_remain_color3 > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 1.3;
 		food_remain_color3--;
+		num_dots++;
 	}
+	dots = num_dots;
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -443,8 +456,9 @@ function Draw() {
 			} else if (board[i][j] == 4) { 
 				// create wall
 				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 60);
-				context.fillStyle = "grey"; //color
+				var wall = new Image();
+				wall.src = 'resources/wall/wall2.jpg';
+				context.drawImage(wall, center.x-30, center.y-30,60,60);
 				context.fill();
 			} else if (board[i][j] == 5) {
 				//create ice cream
@@ -579,9 +593,6 @@ function UpdatePositionIceCream() {
 		if (board[icecream.i][icecream.j]==2){
 			window.clearInterval(interval1);
 			score+=50;
-			if (historyboard[icecream.i][icecream.j]==1||historyboard[icecream.i][icecream.j]==1.2||historyboard[icecream.i][icecream.j]==1.3){
-				dots--;
-			}
 			var cherry = new Audio('resources/sounds/Fruit.mp3');
 			cherry.volume=0.3;
 			cherry.play();
@@ -684,9 +695,9 @@ function UpdatePositionGhost(ghost){
 			lives=lives-1;
 			score=score -10;
 			dead = true;
-			if (historyboard[ghost.i][ghost.j]==1||historyboard[ghost.i][ghost.j]==1.2||historyboard[ghost.i][ghost.j]==1.3){
-				dots--;
-			}
+			//if (historyboard[ghost.i][ghost.j]==1||historyboard[ghost.i][ghost.j]==1.2||historyboard[ghost.i][ghost.j]==1.3){
+			//	dots--;
+			//}
 			Draw();
 			if (lives<=0){
 				stopGame();
@@ -829,6 +840,7 @@ function UpdatePosition() {
 			var chomp = new Audio('resources/sounds/Chomp.mp3');
 			chomp.volume=0.3;
 			dots--;
+			historyboard[shape.i][shape.j] = 0;
 			chomp.play();
 			score+=5;
 		}
@@ -836,6 +848,7 @@ function UpdatePosition() {
 			var chomp = new Audio('resources/sounds/Chomp.mp3');
 			chomp.volume=0.3;
 			dots--;
+			historyboard[shape.i][shape.j] = 0;
 			chomp.play();
 			score+=15;
 		}
@@ -843,6 +856,7 @@ function UpdatePosition() {
 			var chomp = new Audio('resources/sounds/Chomp.mp3');
 			chomp.volume=0.3;
 			dots--;
+			historyboard[shape.i][shape.j] = 0;
 			chomp.play();
 			score+=25;
 		}
@@ -855,7 +869,9 @@ function UpdatePosition() {
 			cherry.volume=0.3;
 			cherry.play();
 			board[shape.i][shape.j]=2
-			
+			if (historyboard[shape.i][shape.j] == 1 || historyboard[shape.i][shape.j] == 1.2 || historyboard[shape.i][shape.j] == 1.3){
+				dots--;
+			}
 			window.clearInterval(interval1);
 			score += 50;
 		}
@@ -1079,7 +1095,7 @@ function showGameOver(){
 function showLoser(){
 	// Get the modal
 	clock = document.getElementById("clock");
-    		clock.pause();
+    clock.pause();
 	document.getElementById("scoreStr1").innerHTML=String(score);
 	var modal1 = document.getElementById("Loser");
 
@@ -1094,7 +1110,7 @@ function showLoser(){
 	
 
 	// When the user clicks on <span> (x), close the modal
-	span1.onclick = function() {
+	span2.onclick = function() {
 	modal1.style.display = "none";
 	}
 	
