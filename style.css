@@ -69,7 +69,7 @@ input[type="range"]::-webkit-slider-thumb {
     right: 0;   
     bottom: 0;
     width: 87%;
-    height: 93%;
+    height:76.5%;
   }
 
   #score{
@@ -83,7 +83,7 @@ input[type="range"]::-webkit-slider-thumb {
     position: absolute ;  
     width: 100px;
     left:87%;
-    top: 80%;
+    top: 32%;
     background-color: yellow;
     color: black;
     font-family: "BN machine";
@@ -105,7 +105,7 @@ input[type="range"]::-webkit-slider-thumb {
     position: absolute ;  
     width: 100px;
     left:87%;
-    top: 17%;
+    top: 14%;
     font-family: "BN machine";
   }
 
@@ -164,7 +164,7 @@ input[type="range"]::-webkit-slider-thumb {
     position: absolute ;  
     width: 100px;
     left:87%;
-    top: 32%;
+    top: 25%;
     font-family: "BN machine";
   }
 
@@ -271,7 +271,7 @@ input[type="range"]::-webkit-slider-thumb {
     height: 100%;
     width: 100%;
     margin: 0px;
-    height: calc(100vh - 4.5em); /* height of viewport minus height of #navigation menu */
+   /* height: calc(100vh - 4.5em); /* height of viewport minus height of #navigation menu */
     padding: 20px 10px;
     overflow: auto;
     border: 1px solid #888888;
@@ -283,7 +283,7 @@ input[type="range"]::-webkit-slider-thumb {
 #welcomeScreen {
 	display: block;
     background-color: black;
-    height: 85%;
+    height: 77%;
 }
 
 /* hide other screens when app first starts */
@@ -292,11 +292,9 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 
-
-#loginScreen, #registerScreen, #settingsScreen{
-  background-color: black;
+#settingsScreen{
+  height: 80%;
 }
-
 
 #registerScreen, #settingsScreen, #loginScreen{
   color: white;
@@ -611,20 +609,21 @@ text-align: left;
  }
 
  footer {
-    height: 12%;
-    position: fixed;
+    height: 6%;
     left: 0;
     bottom: 0;
     width: 100%;
+    position: absolute;
     color: white;
     text-align: center;
     font-family: "BN machine";
+    background-color: rgb(54, 54, 54);
   }
 
   #mail{
     position: absolute;
-    width: 20%;
-    left: 7%;
+    width: 25%;
+    left: 0%;
     border: 3px solid #0202f1;
     border-radius: 15px;
   }
@@ -642,6 +641,7 @@ text-align: left;
       font-family: "BN machine";
       letter-spacing: 2px;
       font-weight: lighter;
+      margin-top: -1%;
   }
 
   #aboutText{
